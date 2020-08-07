@@ -1,0 +1,15 @@
+{
+  "name": "time-formatter",
+  "version": "1.0.0",
+  "description": "Time Formatter",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "time",
+    "formatter"
+  ],
+  "author": "RWF",
+  "license": "MIT"
+}
