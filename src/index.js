@@ -42,8 +42,6 @@ const getFilteredTimeComponents = timeComponents => {
     const min = Math.min(...nonZeroIndexes);
     const max = Math.max(...nonZeroIndexes);
 
-    console.log({timeComponents, nonZeroIndexes, min, max});
-
     return Object.entries(timeComponents).reduce(
         (acc, [key, value], index) => ({
             ...acc,
