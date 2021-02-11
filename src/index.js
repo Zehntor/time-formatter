@@ -7,11 +7,9 @@ module.exports = time => {
     const timeComponents = getTimeComponents(time);
     const filteredTimeComponents = getFilteredTimeComponents(timeComponents);
 
-    if (!Object.keys(filteredTimeComponents).length) {
-        return '0 seconds';
-    }
-
-    return getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents));
+    return Object.keys(filteredTimeComponents).length
+        ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents))
+        : '0 seconds';
 };
 
 const getTimeComponents = time => {
