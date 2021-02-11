@@ -6,7 +6,6 @@ const {getHumanReadableList, pluralise} = require('./utils');
 module.exports = time => {
     const timeComponents = getTimeComponents(time);
     const filteredTimeComponents = getFilteredTimeComponents(timeComponents);
-    console.log(time, filteredTimeComponents);
 
     return Object.keys(filteredTimeComponents).length
         ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents))
