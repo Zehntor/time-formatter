@@ -4,7 +4,7 @@
   "description": "Time Formatter",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "keywords": [
     "time",
