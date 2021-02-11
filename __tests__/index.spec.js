@@ -85,6 +85,7 @@ describe('formatTime', () => {
     it('should convert some random values', () => {
         const randomValues = [
             694861,
+            90000,
             86418.004,
             86400,
             3940,
@@ -108,6 +109,7 @@ describe('formatTime', () => {
 
         expect(convertedValues).toEqual([
             '1 week, 1 day, 1 hour, 1 minute and 1 second',
+            '1 day and 1 hour',
             '1 day, 0 hours, 0 minutes and 18.004 seconds',
             '1 day',
             '1 hour, 5 minutes and 40 seconds',

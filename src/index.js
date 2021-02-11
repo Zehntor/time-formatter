@@ -6,6 +6,7 @@ const {getHumanReadableList, pluralise} = require('./utils');
 module.exports = time => {
     const timeComponents = getTimeComponents(time);
     const filteredTimeComponents = getFilteredTimeComponents(timeComponents);
+    console.log(time, filteredTimeComponents);
 
     return Object.keys(filteredTimeComponents).length
         ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents))
@@ -32,34 +33,24 @@ const getTimeComponents = time => {
     return {week, day, hour, minute, second};
 };
 
-/**
- * Trims right 0s
- * @param timeComponents
- * @returns {{}}
- */
 const getFilteredTimeComponents = timeComponents => {
-    const keys = Object.keys(timeComponents);
-    const nonZeroIndexes = keys.reduce(
-        (acc, key, index) => timeComponents[key] !== 0 ? [...acc, index] : acc,
+    const nonZeroIndexes = Object.entries(timeComponents).reduce(
+        (acc, [key, value], index) => timeComponents[key] !== 0 ? [...acc, index] : acc,
         []
     );
-
-    if (!nonZeroIndexes.length) {
-        return {};
-    }
 
     const min = Math.min(...nonZeroIndexes);
     const max = Math.max(...nonZeroIndexes);
 
-    return keys
-        .filter(key => {
-            const index = keys.indexOf(key);
-            return min <= index && index <= max;
-        })
-        .reduce((acc, index) => {
-            acc[index] = timeComponents[index];
-            return acc;
-        }, {});
+    console.log({timeComponents, nonZeroIndexes, min, max});
+
+    return Object.entries(timeComponents).reduce(
+        (acc, [key, value], index) => ({
+            ...acc,
+            ...(min <= index && index <= max && {[key]: value})
+        }),
+        {}
+    );
 };
 
 const getFormattedTimeComponents = timeComponents =>
