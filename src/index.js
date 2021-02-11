@@ -32,9 +32,17 @@ const getTimeComponents = time => {
     return {week, day, hour, minute, second};
 };
 
+/**
+ * Trims right 0s
+ * @param timeComponents
+ * @returns {{}}
+ */
 const getFilteredTimeComponents = timeComponents => {
     const keys = Object.keys(timeComponents);
-    const nonZeroIndexes = keys.filter(key => Boolean(timeComponents[key])).map(key => keys.indexOf(key));
+    const nonZeroIndexes = keys.reduce(
+        (acc, key, index) => timeComponents[key] !== 0 ? [...acc, index] : acc,
+        []
+    );
 
     if (!nonZeroIndexes.length) {
         return {};
