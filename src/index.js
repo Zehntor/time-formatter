@@ -5,7 +5,8 @@ const {getHumanReadableList, pluralise} = require('./utils');
 
 module.exports = time => {
     const timeComponents = getTimeComponents(time);
-    const filteredTimeComponents = getFilteredTimeComponents(timeComponents);
+    const bounds = getBounds(timeComponents);
+    const filteredTimeComponents = getFilteredTimeComponents(timeComponents, bounds);
 
     return Object.keys(filteredTimeComponents).length
         ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents))
@@ -32,23 +33,26 @@ const getTimeComponents = time => {
     return {week, day, hour, minute, second};
 };
 
-const getFilteredTimeComponents = timeComponents => {
+const getBounds = timeComponents => {
     const nonZeroIndexes = Object.entries(timeComponents).reduce(
         (acc, [key, value], index) => timeComponents[key] !== 0 ? [...acc, index] : acc,
         []
     );
 
-    const min = Math.min(...nonZeroIndexes);
-    const max = Math.max(...nonZeroIndexes);
+    return {
+        min: Math.min(...nonZeroIndexes),
+        max: Math.max(...nonZeroIndexes)
+    };
+};
 
-    return Object.entries(timeComponents).reduce(
+const getFilteredTimeComponents = (timeComponents, {min, max}) =>
+    Object.entries(timeComponents).reduce(
         (acc, [key, value], index) => ({
             ...acc,
             ...(min <= index && index <= max && {[key]: value})
         }),
         {}
     );
-};
 
 const getFormattedTimeComponents = timeComponents =>
     Object.entries(timeComponents).reduce((acc, [key, value], index, entries) => {
