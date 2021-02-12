@@ -1,3 +1,4 @@
+```javascript
 getHumanReadableTime(0) = 0 seconds  
 getHumanReadableTime(604800) = 1 week  
 getHumanReadableTime(1209600) = 2 weeks  
@@ -36,3 +37,4 @@ getHumanReadableTime(15) = 15 seconds
 getHumanReadableTime(1.23456) = 1.235 seconds  
 getHumanReadableTime(0.246) = 246 milliseconds  
 getHumanReadableTime(0) = 0 seconds  
+```
