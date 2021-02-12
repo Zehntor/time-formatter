@@ -33,17 +33,19 @@ const getTimeComponents = time => {
     return {week, day, hour, minute, second};
 };
 
-const getBounds = timeComponents => {
-    const nonZeroIndexes = Object.entries(timeComponents).reduce(
-        (acc, [key, value], index) => timeComponents[key] !== 0 ? [...acc, index] : acc,
-        []
+const getBounds = timeComponents =>
+    Object.entries(timeComponents).reduce(
+        (acc, [key, value], index) => value !== 0
+            ? {
+                min: Math.min(index, acc.min),
+                max: Math.max(index, acc.max)
+            }
+            : acc,
+        {
+            min: Number.MAX_VALUE,
+            max: 0
+        }
     );
-
-    return {
-        min: Math.min(...nonZeroIndexes),
-        max: Math.max(...nonZeroIndexes)
-    };
-};
 
 const getFilteredTimeComponents = (timeComponents, {min, max}) =>
     Object.entries(timeComponents).reduce(
