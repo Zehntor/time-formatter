@@ -62,7 +62,7 @@ const getFormattedTimeComponents = timeComponents =>
             if (value === 0) acc.push('0 seconds');
             else if (value < 1) {
                 if (entries.length > 1) acc.push('0 seconds');
-                acc.push(pluralise(Math.round(value * 1000), 'millisecond'));
+                acc.push(pluralise(Math.round(value * 1e3), 'millisecond'));
             } else acc.push(pluralise(Number.isInteger(value) ? value : value.toFixed(3), key));
         } else acc.push(pluralise(value, key));
 
