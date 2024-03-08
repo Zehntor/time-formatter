@@ -1,9 +1,9 @@
-type SingularPlural = {
+export type SingularPlural = {
   singular: string;
   plural?: string;
 };
 
-type I18n = {
+export type I18n = {
   week?: SingularPlural;
   day?: SingularPlural;
   hour?: SingularPlural;
@@ -15,6 +15,7 @@ type I18n = {
 
 export type Options = {
   precision: number;
+  useOnlyMillisWhenUnderOneSecond: boolean; // Should we use 123 milliseconds instead of 0.123 seconds? TODO: think of a better name
   i18n: I18n;
 };
 

@@ -1,4 +1,50 @@
-import { getHumanReadableList, pluralise, roundToDecimals } from '../utils';
+import { DefaultOptions } from '../constants';
+import { getMergedOptions, getHumanReadableList, pluralise, roundToDecimals } from '../utils';
+import { Options } from '../types';
+
+describe('getMergedOptions', () => {
+  it('should merge the shallow options', () => {
+    const result: Options = getMergedOptions(DefaultOptions, { precision: 2 });
+
+    expect(result.precision).toBe(2);
+    expect(result.useOnlyMillisWhenUnderOneSecond).toBe(true);
+    expect(result.i18n).toBeDefined();
+  });
+
+  it('should merge incomplete i18n', () => {
+    const incompleteI18n: Partial<Options> = {
+      i18n: {
+        millisecond: {
+          singular: 'ms'
+        }
+      }
+    };
+
+    const result: Options = getMergedOptions(DefaultOptions, incompleteI18n);
+
+    expect(result.i18n).toStrictEqual({
+      week: {
+        singular: 'week'
+      },
+      day: {
+        singular: 'day'
+      },
+      hour: {
+        singular: 'hour'
+      },
+      minute: {
+        singular: 'minute'
+      },
+      second: {
+        singular: 'second'
+      },
+      millisecond: {
+        singular: 'ms'
+      },
+      and: 'and'
+    });
+  });
+});
 
 describe('getHumanReadableList', () => {
   const values = [

@@ -61,7 +61,7 @@ describe('formatTime', () => {
     value += ONE_MINUTE;
     expect(formatTime(value)).toBe('1 week, 1 day, 1 hour and 1 minute');
 
-    value += 1;
+    value += ONE_SECOND;
     expect(formatTime(value)).toBe('1 week, 1 day, 1 hour, 1 minute and 1 second');
 
     value += ONE_MILLISECOND;
@@ -93,7 +93,7 @@ describe('formatTime', () => {
   });
 
   it('should convert the sum of odd factors', () => {
-    const oddFactorsSum = allFactors.reduce((acc, value, index) => (index % 2 !== 0 ? acc + value : acc), 0);
+    const oddFactorsSum = allFactors.reduce((acc, value, index) => (index % 2 === 0 ? acc : acc + value), 0);
     expect(formatTime(oddFactorsSum)).toBe('1 day, 0 hours, 1 minute, 0 seconds and 1 millisecond');
   });
 
@@ -150,6 +150,7 @@ describe('formatTime', () => {
 
     const options: Options = {
       precision: 3,
+      useOnlyMillisWhenUnderOneSecond: true,
       i18n: {
         week: {
           singular: 'semana'

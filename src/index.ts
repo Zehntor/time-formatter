@@ -1,17 +1,17 @@
 import { DefaultOptions, TimeConstants } from './constants';
-import { getFinalOptions, getHumanReadableList, pluralise, roundToDecimals } from './utils';
+import { getMergedOptions, getHumanReadableList, pluralise, roundToDecimals } from './utils';
 import { Bounds, Options, TimeComponents } from './types';
 
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE } = TimeConstants;
 
 export default (time: number, options: Options = DefaultOptions): string => {
-  const finalOptions: Options = getFinalOptions(options);
+  const mergedOptions: Options = getMergedOptions(DefaultOptions, options);
   const timeComponents: TimeComponents = getTimeComponents(time);
   const bounds: Bounds = getBounds(timeComponents);
   const filteredTimeComponents: TimeComponents = getFilteredTimeComponents(timeComponents, bounds);
 
   return Object.keys(filteredTimeComponents).length
-    ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents, finalOptions), options.i18n.and)
+    ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents, mergedOptions), options.i18n.and)
     : pluralise(0, options.i18n.second!.singular, options.i18n.second!.plural);
 };
 
@@ -63,7 +63,8 @@ const getFormattedTimeComponents = (timeComponents: TimeComponents, options: Opt
   Object.entries(timeComponents).reduce((acc, [key, value], _, entries) => {
     if (key === 'second') {
       if (value < 1) {
-        if (entries.length > 1) acc.push(pluralise(0, options.i18n.second!.singular, options.i18n.second!.plural));
+        if (entries.length > 1 || !options.useOnlyMillisWhenUnderOneSecond)
+          acc.push(pluralise(0, options.i18n.second!.singular, options.i18n.second!.plural));
         acc.push(
           pluralise(Math.round(value * 1e3), options.i18n.millisecond!.singular, options.i18n.millisecond!.plural)
         );

@@ -11,6 +11,7 @@ export enum TimeConstants {
 
 export const DefaultOptions: Options = {
   precision: 3,
+  useOnlyMillisWhenUnderOneSecond: true,
   i18n: {
     week: {
       singular: 'week'

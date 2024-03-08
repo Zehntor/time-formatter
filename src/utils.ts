@@ -1,17 +1,17 @@
 import { Options } from './types';
-import { DefaultOptions } from './constants';
 
 /**
  * Merges the options with the default options
+ * @param defaultOptions - The default options
  * @param options - The options
  * @returns Merged options
  * TODO: add tests
  */
-export const getFinalOptions = (options: Options): Options => ({
-  ...DefaultOptions,
+export const getMergedOptions = (defaultOptions: Options, options: Partial<Options>): Options => ({
+  ...defaultOptions,
   ...options,
   i18n: {
-    ...DefaultOptions.i18n,
+    ...defaultOptions.i18n,
     ...options.i18n
   }
 });
