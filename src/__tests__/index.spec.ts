@@ -1,6 +1,6 @@
 import formatTime from '../index';
 import { TimeConstants } from '../constants';
-import { Options } from '../types';
+import { I18n, Options } from '../types';
 
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } = TimeConstants;
 const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND];
@@ -117,6 +117,8 @@ describe('formatTime', () => {
       [15, '15 seconds'],
       [1.23456, '1.235 seconds'],
       [0.246, '246 milliseconds'],
+      [0.384236, '384.236 milliseconds'],
+      [0.000286, '0.286 milliseconds'],
       [0, '0 seconds']
     ];
 
@@ -148,34 +150,33 @@ describe('formatTime', () => {
       [0, '0 segundos']
     ];
 
-    const options: Options = {
-      precision: 3,
-      useOnlyMillisWhenUnderOneSecond: true,
-      i18n: {
-        week: {
-          singular: 'semana'
-        },
-        day: {
-          singular: 'dia'
-        },
-        hour: {
-          singular: 'hora'
-        },
-        minute: {
-          singular: 'minuto'
-        },
-        second: {
-          singular: 'segundo'
-        },
-        millisecond: {
-          singular: 'milissegundo'
-        },
-        and: 'e'
-      }
+    const options: Partial<Options> = {
+      precision: 3
+    };
+    const i18n: Partial<I18n> = {
+      week: {
+        singular: 'semana'
+      },
+      day: {
+        singular: 'dia'
+      },
+      hour: {
+        singular: 'hora'
+      },
+      minute: {
+        singular: 'minuto'
+      },
+      second: {
+        singular: 'segundo'
+      },
+      millisecond: {
+        singular: 'milissegundo'
+      },
+      and: 'e'
     };
 
     it.each(values)("human readable of %d seconds should be '%s'", (time: number, human: string) => {
-      expect(formatTime(time, options)).toBe(human);
+      expect(formatTime(time, options, i18n)).toBe(human);
     });
   });
 });

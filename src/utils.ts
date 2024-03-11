@@ -1,19 +1,12 @@
-import { Options } from './types';
-
 /**
- * Merges the options with the default options
- * @param defaultOptions - The default options
- * @param options - The options
- * @returns Merged options
- * TODO: add tests
+ * Merges the overrides with the default overrides
+ * @param defaults - The default values
+ * @param overrides - The overrides
+ * @returns Merged overrides
  */
-export const getMergedOptions = (defaultOptions: Options, options: Partial<Options>): Options => ({
-  ...defaultOptions,
-  ...options,
-  i18n: {
-    ...defaultOptions.i18n,
-    ...options.i18n
-  }
+export const getMergedDefaults = <T>(defaults: T, overrides: Partial<T>): T => ({
+  ...defaults,
+  ...overrides
 });
 
 /**

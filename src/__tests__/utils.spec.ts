@@ -1,28 +1,23 @@
-import { DefaultOptions } from '../constants';
-import { getMergedOptions, getHumanReadableList, pluralise, roundToDecimals } from '../utils';
-import { Options } from '../types';
+import { DefaultI18n, DefaultOptions } from '../constants';
+import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from '../utils';
+import { I18n, Options } from '../types';
 
-describe('getMergedOptions', () => {
-  it('should merge the shallow options', () => {
-    const result: Options = getMergedOptions(DefaultOptions, { precision: 2 });
-
+describe('getMergedDefaults', () => {
+  it('should merge the options', () => {
+    const result: Options = getMergedDefaults(DefaultOptions, { precision: 2 });
     expect(result.precision).toBe(2);
-    expect(result.useOnlyMillisWhenUnderOneSecond).toBe(true);
-    expect(result.i18n).toBeDefined();
   });
 
   it('should merge incomplete i18n', () => {
-    const incompleteI18n: Partial<Options> = {
-      i18n: {
-        millisecond: {
-          singular: 'ms'
-        }
+    const incompleteI18n: Partial<I18n> = {
+      millisecond: {
+        singular: 'ms'
       }
     };
 
-    const result: Options = getMergedOptions(DefaultOptions, incompleteI18n);
+    const result: I18n = getMergedDefaults(DefaultI18n, incompleteI18n);
 
-    expect(result.i18n).toStrictEqual({
+    expect(result).toStrictEqual({
       week: {
         singular: 'week'
       },
@@ -40,6 +35,12 @@ describe('getMergedOptions', () => {
       },
       millisecond: {
         singular: 'ms'
+      },
+      microsecond: {
+        singular: 'microsecond'
+      },
+      nanosecond: {
+        singular: 'nanosecond'
       },
       and: 'and'
     });
