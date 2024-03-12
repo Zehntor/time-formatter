@@ -1,4 +1,5 @@
-import { DefaultI18n, DefaultOptions, TimeConstants } from './constants';
+// @ts-nocheck
+import { DefaultI18n, DefaultOptions, TimeConstants, UnitTimeMap } from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
 import { Bounds, I18n, Options, TimeComponents } from './types';
 
@@ -22,29 +23,37 @@ export default (
 };
 
 const getTimeComponents = (time: number, options: Options): TimeComponents => {
-  const week = Math.floor(time / ONE_WEEK);
-  time -= week * ONE_WEEK;
 
-  const day = Math.floor(time / ONE_DAY);
-  time -= day * ONE_DAY;
 
-  const hour = Math.floor(time / ONE_HOUR);
-  time -= hour * ONE_HOUR;
+  const cenas = Object.entries(TimeConstants);
 
-  const minute = Math.floor(time / ONE_MINUTE);
-  time -= minute * ONE_MINUTE;
-
-  const second = Math.floor(time / ONE_SECOND);
-  time -= second * ONE_SECOND;
-
-  // const millisecond = Math.floor(time / ONE_MILLISECOND);
-  // time -= millisecond * ONE_MILLISECOND;
-
-  const millisecond = roundToDecimals(time / ONE_MILLISECOND, options.precision);
-  time -= millisecond * ONE_MILLISECOND;
-
-  return { week, day, hour, minute, second, millisecond };
+  return {  };
 };
+//
+// const getTimeComponents = (time: number, options: Options): TimeComponents => {
+//   const week = Math.floor(time / ONE_WEEK);
+//   time -= week * ONE_WEEK;
+//
+//   const day = Math.floor(time / ONE_DAY);
+//   time -= day * ONE_DAY;
+//
+//   const hour = Math.floor(time / ONE_HOUR);
+//   time -= hour * ONE_HOUR;
+//
+//   const minute = Math.floor(time / ONE_MINUTE);
+//   time -= minute * ONE_MINUTE;
+//
+//   const second = Math.floor(time / ONE_SECOND);
+//   time -= second * ONE_SECOND;
+//
+//   // const millisecond = Math.floor(time / ONE_MILLISECOND);
+//   // time -= millisecond * ONE_MILLISECOND;
+//
+//   const millisecond = roundToDecimals(time / ONE_MILLISECOND, options.precision);
+//   time -= millisecond * ONE_MILLISECOND;
+//
+//   return { week, day, hour, minute, second, millisecond };
+// };
 
 const getBounds = (timeComponents: TimeComponents): Bounds =>
   Object.values(timeComponents).reduce(

@@ -12,8 +12,6 @@ export type I18n = {
   minute: SingularPlural;
   second: SingularPlural;
   millisecond: SingularPlural;
-  microsecond: SingularPlural;
-  nanosecond: SingularPlural;
   and: string;
 };
 
@@ -30,8 +28,6 @@ export type TimeComponents = {
   [Units.MINUTE]?: number;
   [Units.SECOND]?: number;
   [Units.MILLISECOND]?: number;
-  [Units.MICROSECOND]?: number;
-  [Units.NANOSECOND]?: number;
 };
 
 export type Bounds = {

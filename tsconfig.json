@@ -3,7 +3,7 @@
     "module": "commonjs",
     "esModuleInterop": false,
     "target": "es2022",
-    "sourceMap": false,
+    "sourceMap": true,
     "outDir": "dist",
     "noImplicitAny": false,
     "noUnusedLocals": true,
