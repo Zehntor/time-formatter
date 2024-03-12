@@ -2,7 +2,7 @@ import { DefaultI18n, DefaultOptions, TimeConstants } from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
 import { Bounds, I18n, Options, TimeComponents } from './types';
 
-const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE } = TimeConstants;
+const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } = TimeConstants;
 
 export default (
   time: number,
@@ -12,7 +12,7 @@ export default (
   const mergedOptions: Options = getMergedDefaults(DefaultOptions, options);
   const mergedI18n: I18n = getMergedDefaults(DefaultI18n, i18n);
 
-  const timeComponents: TimeComponents = getTimeComponents(time);
+  const timeComponents: TimeComponents = getTimeComponents(time, mergedOptions);
   const bounds: Bounds = getBounds(timeComponents);
   const filteredTimeComponents: TimeComponents = getFilteredTimeComponents(timeComponents, bounds);
 
@@ -21,24 +21,29 @@ export default (
     : pluralise(0, mergedI18n.second.singular, mergedI18n.second.plural);
 };
 
-const getTimeComponents = (time: number): TimeComponents => {
-  const timeComponents: TimeComponents = {};
-
+const getTimeComponents = (time: number, options: Options): TimeComponents => {
   const week = Math.floor(time / ONE_WEEK);
-  timeComponents.week = week * ONE_WEEK;
+  time -= week * ONE_WEEK;
 
-  const day = Math.floor((time - timeComponents.week) / ONE_DAY);
-  timeComponents.day = day * ONE_DAY;
+  const day = Math.floor(time / ONE_DAY);
+  time -= day * ONE_DAY;
 
-  const hour = Math.floor((time - timeComponents.week - timeComponents.day) / ONE_HOUR);
-  timeComponents.hour = hour * ONE_HOUR;
+  const hour = Math.floor(time / ONE_HOUR);
+  time -= hour * ONE_HOUR;
 
-  const minute = Math.floor((time - timeComponents.week - timeComponents.day - timeComponents.hour) / ONE_MINUTE);
-  timeComponents.minute = minute * ONE_MINUTE;
+  const minute = Math.floor(time / ONE_MINUTE);
+  time -= minute * ONE_MINUTE;
 
-  const second = time - timeComponents.week - timeComponents.day - timeComponents.hour - timeComponents.minute;
+  const second = Math.floor(time / ONE_SECOND);
+  time -= second * ONE_SECOND;
 
-  return { week, day, hour, minute, second };
+  // const millisecond = Math.floor(time / ONE_MILLISECOND);
+  // time -= millisecond * ONE_MILLISECOND;
+
+  const millisecond = roundToDecimals(time / ONE_MILLISECOND, options.precision);
+  time -= millisecond * ONE_MILLISECOND;
+
+  return { week, day, hour, minute, second, millisecond };
 };
 
 const getBounds = (timeComponents: TimeComponents): Bounds =>
@@ -69,21 +74,19 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
  * TODO: check sub millisecond values, e.g. 284.236 ms. Maybe go nano seconds, or even smaller
  * @param timeComponents
  * @param options
+ * @param i18n
  */
 const getFormattedTimeComponents = (timeComponents: TimeComponents, options: Options, i18n: I18n): string[] =>
-  Object.entries(timeComponents).reduce((acc, [key, value], _, entries) => {
-    if (key === 'second') {
-      if (value < 1) {
-        if (entries.length > 1) acc.push(pluralise(0, i18n.second.singular, i18n.second.plural));
-        acc.push(pluralise(Math.round(value * 1e3), i18n.millisecond.singular, i18n.millisecond.plural));
-      } else
-        acc.push(
-          pluralise(
-            Number.isInteger(value) ? value : roundToDecimals(value, options.precision),
-            i18n![key].singular,
-            i18n![key].plural
-          )
-        );
+  Object.entries(timeComponents).reduce((acc, [key, value]) => {
+    if (key === options.minUnit) {
+    // if (it is the last key) {
+      acc.push(
+        pluralise(
+          Number.isInteger(value) ? value : roundToDecimals(value, options.precision),
+          i18n![key].singular,
+          i18n![key].plural
+        )
+      );
     } else acc.push(pluralise(value, i18n[key].singular, i18n[key].plural));
 
     return acc;
