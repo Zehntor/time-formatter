@@ -1,4 +1,4 @@
-import {I18n, Options, UnitTimeMap} from './types';
+import { I18n, Options, UnitTimeMap } from './types';
 
 export enum Units {
   WEEK = 'week',
@@ -25,7 +25,7 @@ export const DefaultUnitTimeMap: UnitTimeMap = {
   [Units.MINUTE]: TimeConstants.ONE_MINUTE,
   [Units.SECOND]: TimeConstants.ONE_SECOND,
   [Units.MILLISECOND]: TimeConstants.ONE_MILLISECOND
-}
+};
 
 export const DefaultOptions: Options = {
   precision: 3,

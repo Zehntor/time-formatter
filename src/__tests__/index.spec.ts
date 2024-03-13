@@ -1,17 +1,9 @@
 import formatTime from '../index';
-import {TimeConstants, Units} from '../constants';
-import {I18n, Options} from '../types';
+import { TimeConstants } from '../constants';
+import { I18n, Options } from '../types';
 
-const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } =
-  TimeConstants;
-const allFactors = [
-  ONE_WEEK,
-  ONE_DAY,
-  ONE_HOUR,
-  ONE_MINUTE,
-  ONE_SECOND,
-  ONE_MILLISECOND
-];
+const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } = TimeConstants;
+const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND];
 
 const sumAll = numbers => numbers.reduce((acc, value) => acc + value, 0);
 
@@ -110,31 +102,31 @@ describe('formatTime', () => {
 
   describe('should convert some random values', () => {
     const values = [
-      // [694861, '1 week, 1 day, 1 hour, 1 minute and 1 second'],
-      // [90000, '1 day and 1 hour'],
+      [694861, '1 week, 1 day, 1 hour, 1 minute and 1 second'],
+      [90000, '1 day and 1 hour'],
       [86418.004003002, '1 day, 0 hours, 0 minutes and 18.004 seconds'],
-      // [86400, '1 day'],
-      // [3940, '1 hour, 5 minutes and 40 seconds'],
-      // [3610, '1 hour, 0 minutes and 10 seconds'],
-      // [3600.001, '1 hour, 0 minutes, 0 seconds and 1 millisecond'],
-      // [3600, '1 hour'],
-      // [1800, '30 minutes'],
-      // [900, '15 minutes'],
-      // [450, '7 minutes and 30 seconds'],
-      // [225, '3 minutes and 45 seconds'],
-      // [100, '1 minute and 40 seconds'],
-      // [60, '1 minute'],
-      // [30, '30 seconds'],
-      // [15, '15 seconds'],
-      // [1.23456, '1.235 seconds'],
-      // [0.246, '246 milliseconds'],
-      // [0.384236, '384.236 milliseconds'],
-      // [0.000286, '0.286 milliseconds'],
-      // [0, '0 seconds']
+      [86400, '1 day'],
+      [3940, '1 hour, 5 minutes and 40 seconds'],
+      [3610, '1 hour, 0 minutes and 10 seconds'],
+      [3600.001, '1 hour, 0 minutes, 0 seconds and 1 millisecond'],
+      [3600, '1 hour'],
+      [1800, '30 minutes'],
+      [900, '15 minutes'],
+      [450, '7 minutes and 30 seconds'],
+      [225, '3 minutes and 45 seconds'],
+      [100, '1 minute and 40 seconds'],
+      [60, '1 minute'],
+      [30, '30 seconds'],
+      [15, '15 seconds'],
+      [1.23456, '1.235 seconds'],
+      [0.246, '246 milliseconds'],
+      [0.384236, '384.236 milliseconds'],
+      [0.000286, '0.286 milliseconds'],
+      [0, '0 seconds']
     ];
 
     it.each(values)("human readable of %d seconds should be '%s'", (time: number, human: string) => {
-      expect(formatTime(time, { minUnit: Units.MILLISECOND, maxUnit: Units.DAY })).toBe(human);
+      expect(formatTime(time)).toBe(human);
     });
   });
 

@@ -1,5 +1,5 @@
-// @ts-nocheck
-import {DefaultI18n, DefaultOptions, DefaultUnitTimeMap, TimeConstants, Units} from './constants';
+// // @ts-nocheck
+import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
 import { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
@@ -29,7 +29,7 @@ const getUnitTimeMap = (options: Options): UnitTimeMap => {
       ...acc,
       ...(index >= maxUnitIndex && index <= minUnitIndex && { [key]: value })
     }),
-    {}
+    {} as UnitTimeMap
   );
 };
 
@@ -37,10 +37,12 @@ const getTimeComponents = (time: number, options: Options): TimeComponents => {
   const unitTimeMap: UnitTimeMap = getUnitTimeMap(options);
   const timeComponents: TimeComponents = {};
 
-  for (const [key, value] of Object.entries(unitTimeMap)) {
-    timeComponents[key] = Math.floor(time / value);
-    time -= timeComponents[key] * value;
-  }
+  Object.entries(unitTimeMap).forEach(([key, value], index, array) => {
+    if (index < array.length - 1) {
+      timeComponents[key] = Math.floor(time / value);
+      time -= timeComponents[key] * value;
+    } else timeComponents[key] = roundToDecimals(time / value, options.precision);
+  });
 
   return timeComponents;
 };
@@ -78,7 +80,7 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
 const getFormattedTimeComponents = (timeComponents: TimeComponents, options: Options, i18n: I18n): string[] =>
   Object.entries(timeComponents).reduce((acc, [key, value]) => {
     if (key === options.minUnit) {
-    // if (it is the last key) {
+      // if (it is the last key) {
       acc.push(
         pluralise(
           Number.isInteger(value) ? value : roundToDecimals(value, options.precision),
