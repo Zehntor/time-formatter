@@ -1,4 +1,4 @@
-// // @ts-nocheck
+//  // @ts-nocheck
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
 import { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
@@ -16,7 +16,7 @@ export default (
   const filteredTimeComponents: TimeComponents = getFilteredTimeComponents(timeComponents, bounds);
 
   return Object.keys(filteredTimeComponents).length
-    ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents, mergedOptions, mergedI18n), i18n.and)
+    ? getHumanReadableList(getFormattedTimeComponents(filteredTimeComponents, mergedI18n), i18n.and)
     : pluralise(0, mergedI18n.second.singular, mergedI18n.second.plural);
 };
 
@@ -72,23 +72,11 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
   );
 
 /**
- * TODO: check sub millisecond values, e.g. 284.236 ms. Maybe go nano seconds, or even smaller
  * @param timeComponents
- * @param options
  * @param i18n
  */
-const getFormattedTimeComponents = (timeComponents: TimeComponents, options: Options, i18n: I18n): string[] =>
-  Object.entries(timeComponents).reduce((acc, [key, value]) => {
-    if (key === options.minUnit) {
-      // if (it is the last key) {
-      acc.push(
-        pluralise(
-          Number.isInteger(value) ? value : roundToDecimals(value, options.precision),
-          i18n![key].singular,
-          i18n![key].plural
-        )
-      );
-    } else acc.push(pluralise(value, i18n[key].singular, i18n[key].plural));
-
-    return acc;
-  }, [] as string[]);
+const getFormattedTimeComponents = (timeComponents: TimeComponents, i18n: I18n): string[] =>
+  Object.entries(timeComponents).reduce(
+    (acc, [key, value]) => [...acc, pluralise(value, i18n[key].singular, i18n[key].plural)],
+    [] as string[]
+  );
