@@ -1,9 +1,7 @@
 // @ts-nocheck
-import { DefaultI18n, DefaultOptions, TimeConstants, UnitTimeMap } from './constants';
+import {DefaultI18n, DefaultOptions, DefaultUnitTimeMap, TimeConstants, Units} from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
-import { Bounds, I18n, Options, TimeComponents } from './types';
-
-const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } = TimeConstants;
+import { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
 export default (
   time: number,
@@ -22,38 +20,30 @@ export default (
     : pluralise(0, mergedI18n.second.singular, mergedI18n.second.plural);
 };
 
-const getTimeComponents = (time: number, options: Options): TimeComponents => {
+const getUnitTimeMap = (options: Options): UnitTimeMap => {
+  const minUnitIndex = Object.values(Units).indexOf(options.minUnit);
+  const maxUnitIndex = Object.values(Units).indexOf(options.maxUnit);
 
-
-  const cenas = Object.entries(TimeConstants);
-
-  return {  };
+  return Object.entries(DefaultUnitTimeMap).reduce(
+    (acc, [key, value], index) => ({
+      ...acc,
+      ...(index >= maxUnitIndex && index <= minUnitIndex && { [key]: value })
+    }),
+    {}
+  );
 };
-//
-// const getTimeComponents = (time: number, options: Options): TimeComponents => {
-//   const week = Math.floor(time / ONE_WEEK);
-//   time -= week * ONE_WEEK;
-//
-//   const day = Math.floor(time / ONE_DAY);
-//   time -= day * ONE_DAY;
-//
-//   const hour = Math.floor(time / ONE_HOUR);
-//   time -= hour * ONE_HOUR;
-//
-//   const minute = Math.floor(time / ONE_MINUTE);
-//   time -= minute * ONE_MINUTE;
-//
-//   const second = Math.floor(time / ONE_SECOND);
-//   time -= second * ONE_SECOND;
-//
-//   // const millisecond = Math.floor(time / ONE_MILLISECOND);
-//   // time -= millisecond * ONE_MILLISECOND;
-//
-//   const millisecond = roundToDecimals(time / ONE_MILLISECOND, options.precision);
-//   time -= millisecond * ONE_MILLISECOND;
-//
-//   return { week, day, hour, minute, second, millisecond };
-// };
+
+const getTimeComponents = (time: number, options: Options): TimeComponents => {
+  const unitTimeMap: UnitTimeMap = getUnitTimeMap(options);
+  const timeComponents: TimeComponents = {};
+
+  for (const [key, value] of Object.entries(unitTimeMap)) {
+    timeComponents[key] = Math.floor(time / value);
+    time -= timeComponents[key] * value;
+  }
+
+  return timeComponents;
+};
 
 const getBounds = (timeComponents: TimeComponents): Bounds =>
   Object.values(timeComponents).reduce(

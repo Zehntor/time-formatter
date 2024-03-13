@@ -1,4 +1,4 @@
-import { Units } from './constants';
+import { TimeConstants, Units } from './constants';
 
 export type SingularPlural = {
   singular: string;
@@ -22,13 +22,12 @@ export type Options = {
 };
 
 export type TimeComponents = {
-  [Units.WEEK]?: number;
-  [Units.DAY]?: number;
-  [Units.HOUR]?: number;
-  [Units.MINUTE]?: number;
-  [Units.SECOND]?: number;
-  [Units.MILLISECOND]?: number;
+  [key in Units]?: number;
 };
+
+export type UnitTimeMap = {
+  [key in Units]: TimeConstants;
+}
 
 export type Bounds = {
   min: number;

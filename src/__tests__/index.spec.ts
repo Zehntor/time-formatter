@@ -1,8 +1,8 @@
 import formatTime from '../index';
-import { TimeConstants } from '../constants';
-import { I18n, Options } from '../types';
+import {TimeConstants, Units} from '../constants';
+import {I18n, Options} from '../types';
 
-const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND } =
+const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND } =
   TimeConstants;
 const allFactors = [
   ONE_WEEK,
@@ -10,8 +10,7 @@ const allFactors = [
   ONE_HOUR,
   ONE_MINUTE,
   ONE_SECOND,
-  ONE_MILLISECOND,
-  ONE_MICROSECOND
+  ONE_MILLISECOND
 ];
 
 const sumAll = numbers => numbers.reduce((acc, value) => acc + value, 0);
@@ -25,8 +24,7 @@ describe('formatTime', () => {
       [ONE_MINUTE, '1 minute'],
       [ONE_SECOND, '1 second'],
       [0, '0 seconds'],
-      [ONE_MILLISECOND, '1 millisecond'],
-      [ONE_MICROSECOND, '1 microsecond']
+      [ONE_MILLISECOND, '1 millisecond']
     ];
 
     it.each(values)("formated time of %d should be '%s'", (time: number, human: string) => {
@@ -41,8 +39,7 @@ describe('formatTime', () => {
       [2 * ONE_HOUR, '2 hours'],
       [2 * ONE_MINUTE, '2 minutes'],
       [2, '2 seconds'],
-      [2 * ONE_MILLISECOND, '2 milliseconds'],
-      [2 * ONE_MICROSECOND, '2 microseconds']
+      [2 * ONE_MILLISECOND, '2 milliseconds']
     ];
 
     it.each(values)("formated time of %d should be '%s'", (time: number, human: string) => {
@@ -137,7 +134,7 @@ describe('formatTime', () => {
     ];
 
     it.each(values)("human readable of %d seconds should be '%s'", (time: number, human: string) => {
-      expect(formatTime(time)).toBe(human);
+      expect(formatTime(time, { minUnit: Units.MILLISECOND, maxUnit: Units.DAY })).toBe(human);
     });
   });
 
