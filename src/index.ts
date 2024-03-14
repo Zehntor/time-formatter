@@ -1,6 +1,13 @@
 //  // @ts-nocheck
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
-import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
+import {
+  checkMinMaxUnits,
+  getMergedDefaults,
+  getHumanReadableList,
+  pluralise,
+  roundToDecimals,
+  checkPrecision
+} from './utils';
 import { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
 export default (
@@ -9,6 +16,9 @@ export default (
   i18n: Partial<I18n> = DefaultI18n
 ): string => {
   const mergedOptions: Options = getMergedDefaults(DefaultOptions, options);
+  if (!checkMinMaxUnits(mergedOptions)) throw new Error('minUnit cannot be greater than maxUnit');
+  if (!checkPrecision(mergedOptions)) throw new Error('precision cannot be negative');
+
   const mergedI18n: I18n = getMergedDefaults(DefaultI18n, i18n);
 
   const timeComponents: TimeComponents = getTimeComponents(time, mergedOptions);
@@ -41,7 +51,7 @@ const getTimeComponents = (time: number, options: Options): TimeComponents => {
     if (index < array.length - 1) {
       timeComponents[key] = Math.floor(time / value);
       time -= timeComponents[key] * value;
-    } else timeComponents[key] = roundToDecimals(time / value, options.precision);
+    } else timeComponents[key] = roundToDecimals(time / value, Math.round(options.precision));
   });
 
   return timeComponents;

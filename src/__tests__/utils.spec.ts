@@ -39,9 +39,6 @@ describe('getMergedDefaults', () => {
       microsecond: {
         singular: 'microsecond'
       },
-      nanosecond: {
-        singular: 'nanosecond'
-      },
       and: 'and'
     });
   });
