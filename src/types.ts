@@ -12,6 +12,7 @@ export type I18n = {
   minute: SingularPlural;
   second: SingularPlural;
   millisecond: SingularPlural;
+  microsecond: SingularPlural;
   and: string;
 };
 

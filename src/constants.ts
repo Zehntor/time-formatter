@@ -6,7 +6,8 @@ export enum Units {
   HOUR = 'hour',
   MINUTE = 'minute',
   SECOND = 'second',
-  MILLISECOND = 'millisecond'
+  MILLISECOND = 'millisecond',
+  MICROSECOND = 'microsecond'
 }
 
 export enum TimeConstants {
@@ -15,7 +16,8 @@ export enum TimeConstants {
   ONE_HOUR = 3600,
   ONE_MINUTE = 60,
   ONE_SECOND = 1,
-  ONE_MILLISECOND = 1e-3
+  ONE_MILLISECOND = 1e-3,
+  ONE_MICROSECOND = 1e-6
 }
 
 export const DefaultUnitTimeMap: UnitTimeMap = {
@@ -24,7 +26,8 @@ export const DefaultUnitTimeMap: UnitTimeMap = {
   [Units.HOUR]: TimeConstants.ONE_HOUR,
   [Units.MINUTE]: TimeConstants.ONE_MINUTE,
   [Units.SECOND]: TimeConstants.ONE_SECOND,
-  [Units.MILLISECOND]: TimeConstants.ONE_MILLISECOND
+  [Units.MILLISECOND]: TimeConstants.ONE_MILLISECOND,
+  [Units.MICROSECOND]: TimeConstants.ONE_MICROSECOND
 };
 
 export const DefaultOptions: Options = {
@@ -51,6 +54,9 @@ export const DefaultI18n: I18n = {
   },
   [Units.MILLISECOND]: {
     singular: 'millisecond'
+  },
+  [Units.MICROSECOND]: {
+    singular: 'microsecond'
   },
   and: 'and'
 };
