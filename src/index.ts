@@ -71,6 +71,30 @@ const getBounds = (timeComponents: TimeComponents): Bounds =>
     }
   );
 
+/**
+ * Removes the leading and trailing time components that are equal to 0
+ * Before
+ *  {
+ *    "week": 0,
+ *    "day": 1,
+ *    "hour": 2,
+ *    "minute": 0,
+ *    "second": 4,
+ *    "millisecond": 0,
+ *    "microsecond": 0
+ *  }
+ * After
+ *  {
+ *   "day": 1,
+ *   "hour": 2,
+ *   "minute": 3,
+ *   "second": 4
+ *  }
+ * @param timeComponents - The time components to filter
+ * @param min - The minimum index
+ * @param max - The maximum index
+ * @returns The filtered time components
+ */
 const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }: Bounds): TimeComponents =>
   Object.entries(timeComponents).reduce(
     (acc, [key, value], index) => ({
@@ -81,8 +105,9 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
   );
 
 /**
- * @param timeComponents
- * @param i18n
+ * @param timeComponents - The time components to format
+ * @param i18n - The full i18n strings
+ * @returns An array of strings representing the formatted time components
  */
 const getFormattedTimeComponents = (timeComponents: TimeComponents, i18n: I18n): string[] =>
   Object.entries(timeComponents).reduce(
