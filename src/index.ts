@@ -1,4 +1,3 @@
-//  // @ts-nocheck
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
 import {
   checkMinMaxUnits,
