@@ -183,7 +183,7 @@ describe('formatTime', () => {
         expect(formatTime(1.6789, options)).toBe('2 seconds');
       });
 
-      it('should be tolernt od decimal precision', () => {
+      it('should be tolerant of decimal precision', () => {
         const options: Partial<Options> = { precision: Math.E, minUnit: Units.SECOND };
         expect(formatTime(1.6789, options)).toBe('1.679 seconds');
       });
