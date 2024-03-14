@@ -12,7 +12,7 @@ export const getMergedDefaults = <T>(defaults: T, overrides: Partial<T>): T => (
   ...overrides
 });
 
-export const checkMinMaxUnits = (options: Options): Boolean => {
+export const checkMinMaxUnits = (options: Options): boolean => {
   const minUnitIndex = Object.values(Units).indexOf(options.minUnit);
   const maxUnitIndex = Object.values(Units).indexOf(options.maxUnit);
   return minUnitIndex >= maxUnitIndex;

@@ -1,6 +1,6 @@
 import formatTime from '../index';
-import {TimeConstants, Units} from '../constants';
-import {I18n, Options} from '../types';
+import { TimeConstants, Units } from '../constants';
+import { I18n, Options } from '../types';
 
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND } = TimeConstants;
 const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND];
@@ -46,7 +46,9 @@ describe('formatTime', () => {
   it('should convert one of each', () => {
     const oneOfEach: number = sumAll(allFactors);
     const options: Partial<Options> = { minUnit: Units.MICROSECOND };
-    expect(formatTime(oneOfEach, options)).toBe('1 week, 1 day, 1 hour, 1 minute, 1 second, 1 millisecond and 1 microsecond');
+    expect(formatTime(oneOfEach, options)).toBe(
+      '1 week, 1 day, 1 hour, 1 minute, 1 second, 1 millisecond and 1 microsecond'
+    );
   });
 
   it('should convert 2 of each', () => {
