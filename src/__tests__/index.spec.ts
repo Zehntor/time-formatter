@@ -170,7 +170,7 @@ describe('formatTime', () => {
 
       it('should throw an error when minUnit is greater than maxUnit', () => {
         const options: Partial<Options> = { minUnit: Units.HOUR, maxUnit: Units.MINUTE };
-        expect(() => formatTime(60, options)).toThrow('minUnit cannot be greater than maxUnit');
+        expect(() => formatTime(60, options)).toThrow('options.minUnit cannot be greater than options.maxUnit');
       });
     });
 
@@ -192,7 +192,7 @@ describe('formatTime', () => {
 
       it('should throw an when the precision is negative', () => {
         const options: Partial<Options> = { precision: -2, minUnit: Units.SECOND };
-        expect(() => formatTime(60, options)).toThrow('precision cannot be negative');
+        expect(() => formatTime(60, options)).toThrow('options.precision cannot be negative');
       });
     });
   });

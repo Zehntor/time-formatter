@@ -15,8 +15,8 @@ export default (
   i18n: Partial<I18n> = DefaultI18n
 ): string => {
   const mergedOptions: Options = getMergedDefaults(DefaultOptions, options);
-  if (!checkMinMaxUnits(mergedOptions)) throw new Error('minUnit cannot be greater than maxUnit');
-  if (!checkPrecision(mergedOptions)) throw new Error('precision cannot be negative');
+  if (!checkPrecision(mergedOptions)) throw new Error('options.precision cannot be negative');
+  if (!checkMinMaxUnits(mergedOptions)) throw new Error('options.minUnit cannot be greater than options.maxUnit');
 
   const mergedI18n: I18n = getMergedDefaults(DefaultI18n, i18n);
 
@@ -87,7 +87,7 @@ const getBounds = (timeComponents: TimeComponents): Bounds =>
  *  {
  *   "day": 1,
  *   "hour": 2,
- *   "minute": 3,
+ *   "minute": 0,
  *   "second": 4
  *  }
  * @param timeComponents - The time components to filter

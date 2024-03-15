@@ -1,40 +1,34 @@
-```javascript
-getHumanReadableTime(0) = 0 seconds  
-getHumanReadableTime(604800) = 1 week  
-getHumanReadableTime(1209600) = 2 weeks  
-getHumanReadableTime(86400) = 1 day  
-getHumanReadableTime(172800) = 2 days  
-getHumanReadableTime(3600) = 1 hour  
-getHumanReadableTime(7200) = 2 hours  
-getHumanReadableTime(60) = 1 minute  
-getHumanReadableTime(120) = 2 minutes  
-getHumanReadableTime(1) = 1 second  
-getHumanReadableTime(2) = 2 seconds  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(1389722) = 2 weeks, 2 days, 2 hours, 2 minutes and 2 seconds  
-getHumanReadableTime(604800) = 1 week  
-getHumanReadableTime(691200) = 1 week and 1 day  
-getHumanReadableTime(694800) = 1 week, 1 day and 1 hour  
-getHumanReadableTime(694860) = 1 week, 1 day, 1 hour and 1 minute  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(608401) = 1 week, 0 days, 1 hour, 0 minutes and 1 second  
-getHumanReadableTime(86460) = 1 day, 0 hours and 1 minute  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(86418.004) = 1 day, 0 hours, 0 minutes and 18.004 seconds  
-getHumanReadableTime(86400) = 1 day  
-getHumanReadableTime(3940) = 1 hour, 5 minutes and 40 seconds  
-getHumanReadableTime(3610) = 1 hour, 0 minutes and 10 seconds  
-getHumanReadableTime(3600.001) = 1 hour, 0 minutes, 0 seconds and 1 millisecond  
-getHumanReadableTime(3600) = 1 hour  
-getHumanReadableTime(1800) = 30 minutes  
-getHumanReadableTime(900) = 15 minutes  
-getHumanReadableTime(450) = 7 minutes and 30 seconds  
-getHumanReadableTime(225) = 3 minutes and 45 seconds  
-getHumanReadableTime(100) = 1 minute and 40 seconds  
-getHumanReadableTime(60) = 1 minute  
-getHumanReadableTime(30) = 30 seconds  
-getHumanReadableTime(15) = 15 seconds  
-getHumanReadableTime(1.23456) = 1.235 seconds  
-getHumanReadableTime(0.246) = 246 milliseconds  
-getHumanReadableTime(0) = 0 seconds  
+# time-formatter
+
+The `time-formatter` package formats a number representing elapsed time into a human readable string.  
+
+
+## Examples
+
+```js
+const formattedTime = formatTime(86418.004003002);
+// '1 day, 0 hours, 0 minutes, 18 seconds, 4 milliseconds and 3.002 microseconds'
+```
+
+## Features
+- Output units from week down to microsecond (TODO: why not higher or lower?)
+
+## Installation
+
+### npm
+
+```bash
+npm install --save time-formatter 
+```
+
+### yarn
+
+```bash
+yarn add data-structure-typed
+```
+
+## Usage
+
+```js
+import formatTime from 'time-formatter';
 ```

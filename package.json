@@ -2,10 +2,11 @@
   "name": "time-formatter",
   "version": "1.0.0",
   "description": "Time Formatter",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "build:prod": "tsc --project tsconfig.build.json",
+    "build:prod": "rm -rf ./dist/ && tsc --project tsconfig.build.json",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.ts'",
