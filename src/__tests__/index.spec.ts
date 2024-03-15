@@ -1,6 +1,6 @@
 import formatTime from '../index';
-import { TimeConstants, Units } from '../constants';
-import { I18n, Options } from '../types';
+import {TimeConstants, Units} from '../constants';
+import {I18n, Options} from '../types';
 
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND } = TimeConstants;
 const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND];
@@ -59,44 +59,44 @@ describe('formatTime', () => {
   });
 
   it('should convert singular increments', () => {
-    let value = 0;
+    let time = 0;
 
-    value += ONE_WEEK;
-    expect(formatTime(value)).toBe('1 week');
+    time += ONE_WEEK;
+    expect(formatTime(time)).toBe('1 week');
 
-    value += ONE_DAY;
-    expect(formatTime(value)).toBe('1 week and 1 day');
+    time += ONE_DAY;
+    expect(formatTime(time)).toBe('1 week and 1 day');
 
-    value += ONE_HOUR;
-    expect(formatTime(value)).toBe('1 week, 1 day and 1 hour');
+    time += ONE_HOUR;
+    expect(formatTime(time)).toBe('1 week, 1 day and 1 hour');
 
-    value += ONE_MINUTE;
-    expect(formatTime(value)).toBe('1 week, 1 day, 1 hour and 1 minute');
+    time += ONE_MINUTE;
+    expect(formatTime(time)).toBe('1 week, 1 day, 1 hour and 1 minute');
 
-    value += ONE_SECOND;
-    expect(formatTime(value)).toBe('1 week, 1 day, 1 hour, 1 minute and 1 second');
+    time += ONE_SECOND;
+    expect(formatTime(time)).toBe('1 week, 1 day, 1 hour, 1 minute and 1 second');
 
-    value += ONE_MILLISECOND;
-    expect(formatTime(value)).toBe('1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond');
+    time += ONE_MILLISECOND;
+    expect(formatTime(time)).toBe('1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond');
   });
 
   it('should convert plural increments', () => {
-    let value = 0;
+    let time = 0;
 
-    value += 2 * (ONE_WEEK + ONE_DAY);
-    expect(formatTime(value)).toBe('2 weeks and 2 days');
+    time += 2 * (ONE_WEEK + ONE_DAY);
+    expect(formatTime(time)).toBe('2 weeks and 2 days');
 
-    value += 2 * ONE_HOUR;
-    expect(formatTime(value)).toBe('2 weeks, 2 days and 2 hours');
+    time += 2 * ONE_HOUR;
+    expect(formatTime(time)).toBe('2 weeks, 2 days and 2 hours');
 
-    value += 2 * ONE_MINUTE;
-    expect(formatTime(value)).toBe('2 weeks, 2 days, 2 hours and 2 minutes');
+    time += 2 * ONE_MINUTE;
+    expect(formatTime(time)).toBe('2 weeks, 2 days, 2 hours and 2 minutes');
 
-    value += 2;
-    expect(formatTime(value)).toBe('2 weeks, 2 days, 2 hours, 2 minutes and 2 seconds');
+    time += 2;
+    expect(formatTime(time)).toBe('2 weeks, 2 days, 2 hours, 2 minutes and 2 seconds');
 
-    value += 2 * ONE_MILLISECOND;
-    expect(formatTime(value)).toBe('2 weeks, 2 days, 2 hours, 2 minutes, 2 seconds and 2 milliseconds');
+    time += 2 * ONE_MILLISECOND;
+    expect(formatTime(time)).toBe('2 weeks, 2 days, 2 hours, 2 minutes, 2 seconds and 2 milliseconds');
   });
 
   it('should convert the sum of even factors', () => {
@@ -244,6 +244,14 @@ describe('formatTime', () => {
       expect(formatTime(oneOfEach, options, partialI18n)).toBe(
         '1 week, 1 day, 1 hour, 1 minute, 1 second, 1 ms and 1 μs'
       );
+    });
+  });
+
+  describe('miscellaneous scenarios', () => {
+    it('should convert to HH:mm', () => {
+      const time: number = 2 * ONE_HOUR + 16 * ONE_MINUTE + 32 * ONE_SECOND; // 8192s
+      const options: Partial<Options> = { precision: 0, minUnit: Units.MINUTE, maxUnit: Units.HOUR };
+      expect(formatTime(time, options)).toBe('2 hours and 17 minutes');
     });
   });
 });
