@@ -20,6 +20,7 @@ const formattedTime = formatTime(8192, options);
 
 ## Features
 - Output units from week down to microsecond (TODO: why not higher or lower?)
+- Arbitrary precision in the lower unit
 
 ## Installation
 
