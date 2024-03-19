@@ -247,11 +247,40 @@ describe('formatTime', () => {
     });
   });
 
+  /**
+   * These are in the README.md file
+   */
   describe('miscellaneous scenarios', () => {
-    it('should convert to HH:mm', () => {
-      const time: number = 2 * ONE_HOUR + 16 * ONE_MINUTE + 32 * ONE_SECOND; // 8192s
-      const options: Partial<Options> = { precision: 0, minUnit: Units.MINUTE, maxUnit: Units.HOUR };
-      expect(formatTime(time, options)).toBe('2 hours and 17 minutes');
+    it('should convert to ss:ms', () => {
+      const time: number = 4 * ONE_SECOND + 256 * ONE_MILLISECOND + 128 * ONE_MICROSECOND;
+      expect(formatTime(time)).toBe('4 seconds and 256.128 milliseconds');
+    });
+
+    it('should convert to hh:mm:ss', () => {
+      const time: number = ONE_DAY + 2 * ONE_HOUR + 16 * ONE_MINUTE + 32 * ONE_SECOND;
+      const options: Partial<Options> = { minUnit: Units.SECOND, maxUnit: Units.HOUR };
+      expect(formatTime(time, options)).toBe('26 hours, 16 minutes and 32 seconds');
+    });
+
+    it('should convert to ss:ms:μs', () => {
+      const time: number = 32 * ONE_SECOND + 64 * ONE_MILLISECOND + 128 * ONE_MICROSECOND;
+      const options: Partial<Options> = { minUnit: Units.MICROSECOND };
+      expect(formatTime(time, options)).toBe('32 seconds, 64 milliseconds and 128 microseconds');
+    });
+
+    it('should convert to ww:dd:hh:mm:ss:ms', () => {
+      const time: number =
+        1 * ONE_WEEK +
+        2 * ONE_DAY +
+        4 * ONE_HOUR +
+        8 * ONE_MINUTE +
+        16 * ONE_SECOND +
+        32 * ONE_MILLISECOND +
+        64.128 * ONE_MICROSECOND;
+      const options: Partial<Options> = { precision: 1, minUnit: Units.MICROSECOND };
+      expect(formatTime(time, options)).toBe(
+        '1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds'
+      );
     });
   });
 });

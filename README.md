@@ -5,17 +5,27 @@ The `time-formatter` package formats a number representing elapsed time into a h
 
 ## Examples
 
-```js
-const formattedTime = formatTime(86418.004003002);
-// 1 day, 0 hours, 0 minutes, 18 seconds, 4 milliseconds and 3.002 microseconds
+```ts
+const formattedTime: string = formatTime(4.256128);
+// 4 seconds and 256.128 milliseconds
+```
 
-const options: Partial<Options> = {
-  precision: 0,
-  minUnit: Units.MINUTE,
-  maxUnit: Units.HOUR
-};
-const formattedTime = formatTime(8192, options);
-// 2 hours and 17 minutes
+```ts
+const options: Partial<Options> = { minUnit: Units.SECOND, maxUnit: Units.HOUR };
+const formattedTime: string = formatTime(94592, options);
+// 26 hours, 16 minutes and 32 seconds
+```
+
+```ts
+const options: Partial<Options> = { minUnit: Units.MICROSECOND };
+const formattedTime: string = formatTime(32.064128, options);
+// 32 seconds, 64 milliseconds and 128 microseconds
+```
+
+```ts
+const options: Partial<Options> = { precision: 1, minUnit: Units.MICROSECOND };
+const formattedTime: string = formatTime(792496.032064128, options);
+// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
 ```
 
 ## Features
@@ -27,13 +37,13 @@ const formattedTime = formatTime(8192, options);
 ### npm
 
 ```bash
-npm install --save time-formatter 
+npm install --save time-formatter
 ```
 
 ### yarn
 
 ```bash
-yarn add data-structure-typed
+yarn add time-formatter
 ```
 
 ## Usage
