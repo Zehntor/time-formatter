@@ -9,8 +9,6 @@
     "lib": ["es2022"],
     "listEmittedFiles": false,            // List generated output files.
     "listFiles": false,                   // List source files compiled by the compiler.
-    "module": "commonjs",
-    "moduleResolution": "node",
     "noImplicitAny": false,
     "noImplicitOverride": true,
     "noUnusedLocals": true,
@@ -18,11 +16,10 @@
     "outDir": "dist",
     "pretty": true,                       // Output a pretty error message.
     "resolveJsonModule": true,            // Enable parsing of the JSON module.
-    "skipLibCheck": true,                 // Skip type checking of type libraries.
+    "skipLibCheck": false,                // Skip type checking of type libraries.
     "sourceMap": false,
     "strict": true,                       // Enable strict type checking, including enabling all strict options.
     "strictNullChecks": true,
-    "target": "es2022",
     "traceResolution": false,             // Whether to trace the module resolution process.
     "typeRoots": ["node_modules/@types", "src/types"],
     "types": ["node", "jest"],            // Specifies the name of the type declaration file to include.
