@@ -1,28 +1,28 @@
 {
   "compilerOptions": {
-    "allowJs": true,                      // Allow the compiler to compile JavaScript files (.js).
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",                      // Specify the base path of the root directory for module import.
+    "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
-    "inlineSourceMap": false,             // Whether to map inline sources to compiled JavaScript files.
-    "lib": ["es2022"],
-    "listEmittedFiles": false,            // List generated output files.
-    "listFiles": false,                   // List source files compiled by the compiler.
+    "inlineSourceMap": false,
+    "lib": ["esnext"],
+    "listEmittedFiles": false,
+    "listFiles": false,
     "noImplicitAny": false,
     "noImplicitOverride": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
-    "pretty": true,                       // Output a pretty error message.
-    "resolveJsonModule": true,            // Enable parsing of the JSON module.
-    "skipLibCheck": false,                // Skip type checking of type libraries.
+    "pretty": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
     "sourceMap": false,
-    "strict": true,                       // Enable strict type checking, including enabling all strict options.
+    "strict": true,
     "strictNullChecks": true,
-    "traceResolution": false,             // Whether to trace the module resolution process.
+    "traceResolution": false,
     "typeRoots": ["node_modules/@types", "src/types"],
-    "types": ["node", "jest"],            // Specifies the name of the type declaration file to include.
+    "types": ["node", "jest"],
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "src/**/*.spec.ts"],

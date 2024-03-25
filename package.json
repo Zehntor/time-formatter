@@ -2,11 +2,22 @@
   "name": "time-formatter",
   "version": "1.0.0",
   "description": "Time Formatter",
-  "main": "./dist/index.js",
-  "types": "./dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/mjs/index.d.ts",
+  "umd:main": "dist/umd/data-structure-typed.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/mjs/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
-    "build:prod": "rm -rf ./dist/ && tsc --project tsconfig.build.json",
+    "build": "rm -rf dist && npm run build:mjs && npm run build:cjs",
+    "build:mjs": "rm -rf dist/mjs && tsc -p tsconfig-mjs.json",
+    "build:cjs": "rm -rf dist/cjs && tsc -p tsconfig-cjs.json",
+
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.ts'",
