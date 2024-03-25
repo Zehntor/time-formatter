@@ -1,4 +1,4 @@
-import { TimeConstants, Units } from './constants';
+import { TimeConstants, Units } from '../constants';
 
 export type SingularPlural = {
   singular: string;

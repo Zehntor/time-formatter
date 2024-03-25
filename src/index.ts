@@ -7,7 +7,7 @@ import {
   roundToDecimals,
   checkPrecision
 } from './utils';
-import { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
+import type { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
 export default (
   time: number,

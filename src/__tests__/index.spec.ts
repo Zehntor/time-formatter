@@ -5,7 +5,7 @@ import { I18n, Options } from '../types';
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND } = TimeConstants;
 const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND];
 
-const sumAll = numbers => numbers.reduce((acc, value) => acc + value, 0);
+const sumAll = (numbers: number[]): number => numbers.reduce((acc: number, value: number) => acc + value, 0);
 
 describe('formatTime', () => {
   describe('singular round values', () => {
