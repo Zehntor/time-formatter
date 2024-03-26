@@ -1,40 +1,118 @@
-```javascript
-getHumanReadableTime(0) = 0 seconds  
-getHumanReadableTime(604800) = 1 week  
-getHumanReadableTime(1209600) = 2 weeks  
-getHumanReadableTime(86400) = 1 day  
-getHumanReadableTime(172800) = 2 days  
-getHumanReadableTime(3600) = 1 hour  
-getHumanReadableTime(7200) = 2 hours  
-getHumanReadableTime(60) = 1 minute  
-getHumanReadableTime(120) = 2 minutes  
-getHumanReadableTime(1) = 1 second  
-getHumanReadableTime(2) = 2 seconds  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(1389722) = 2 weeks, 2 days, 2 hours, 2 minutes and 2 seconds  
-getHumanReadableTime(604800) = 1 week  
-getHumanReadableTime(691200) = 1 week and 1 day  
-getHumanReadableTime(694800) = 1 week, 1 day and 1 hour  
-getHumanReadableTime(694860) = 1 week, 1 day, 1 hour and 1 minute  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(608401) = 1 week, 0 days, 1 hour, 0 minutes and 1 second  
-getHumanReadableTime(86460) = 1 day, 0 hours and 1 minute  
-getHumanReadableTime(694861) = 1 week, 1 day, 1 hour, 1 minute and 1 second  
-getHumanReadableTime(86418.004) = 1 day, 0 hours, 0 minutes and 18.004 seconds  
-getHumanReadableTime(86400) = 1 day  
-getHumanReadableTime(3940) = 1 hour, 5 minutes and 40 seconds  
-getHumanReadableTime(3610) = 1 hour, 0 minutes and 10 seconds  
-getHumanReadableTime(3600.001) = 1 hour, 0 minutes, 0 seconds and 1 millisecond  
-getHumanReadableTime(3600) = 1 hour  
-getHumanReadableTime(1800) = 30 minutes  
-getHumanReadableTime(900) = 15 minutes  
-getHumanReadableTime(450) = 7 minutes and 30 seconds  
-getHumanReadableTime(225) = 3 minutes and 45 seconds  
-getHumanReadableTime(100) = 1 minute and 40 seconds  
-getHumanReadableTime(60) = 1 minute  
-getHumanReadableTime(30) = 30 seconds  
-getHumanReadableTime(15) = 15 seconds  
-getHumanReadableTime(1.23456) = 1.235 seconds  
-getHumanReadableTime(0.246) = 246 milliseconds  
-getHumanReadableTime(0) = 0 seconds  
+# time-formatter
+
+The `time-formatter` package formats a number representing elapsed time into a human readable string.
+
+## Examples
+
+### TypeScript
+
+```ts
+const formattedTime: string = formatTime(4.256128);
+// 4 seconds and 256.128 milliseconds
 ```
+
+```ts
+const options: Partial<Options> = {minUnit: Units.SECOND, maxUnit: Units.HOUR};
+const formattedTime: string = formatTime(94592, options);
+// 26 hours, 16 minutes and 32 seconds
+```
+
+```ts
+const options: Partial<Options> = {minUnit: Units.MICROSECOND};
+const formattedTime: string = formatTime(32.064128, options);
+// 32 seconds, 64 milliseconds and 128 microseconds
+```
+
+```ts
+const options: Partial<Options> = {precision: 1, minUnit: Units.MICROSECOND};
+const formattedTime: string = formatTime(792496.032064128, options);
+// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
+```
+
+### JavaScript
+
+```js
+const formattedTime = formatTime(4.256128);
+// 4 seconds and 256.128 milliseconds
+```
+
+```js
+const options = {minUnit: Units.SECOND, maxUnit: Units.HOUR};
+const formattedTime = formatTime(94592, options);
+// 26 hours, 16 minutes and 32 seconds
+```
+
+```js
+const options = {minUnit: Units.MICROSECOND};
+const formattedTime = formatTime(32.064128, options);
+// 32 seconds, 64 milliseconds and 128 microseconds
+```
+
+```js
+const options = {precision: 1, minUnit: Units.MICROSECOND};
+const formattedTime = formatTime(792496.032064128, options);
+// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
+```
+
+## Features
+
+- Output units from week down to microsecond (TODO: why not higher or lower?)
+- Arbitrary precision in the lower unit
+
+## Installation
+
+### npm
+
+```bash
+npm install --save time-formatter
+```
+
+### yarn
+
+```bash
+yarn add time-formatter
+```
+
+## Usage
+
+### JavaScript
+
+Start by importing.
+
+```ts
+import formatTime from 'time-formatter';
+```
+
+Then
+
+```ts
+const formattedTime = formatTime(time, [options], [i18n]);
+```
+
+## Options
+
+An object with the following keys:
+
+| Option    | Type   | Default value       | Description                                              |
+|-----------|--------|---------------------|----------------------------------------------------------|
+| precision | number | 3                   | The number of decimal places the smallest unit will have |
+| minUnit   | string | `Units.MILLISECOND` | The minimum unit. One of the `Units` enum                |
+| maxUnit   | string | `Units.WEEK`        | The maximum unit. One of the `Units` enum                |
+
+## I18n
+
+TODO
+
+## Constants and types
+
+### enum `Units`
+
+| Key         | Value       |
+|-------------|-------------|
+| WEEK        | week        |
+| DAY         | day         |
+| HOUR        | hour        |
+| MINUTE      | minute      |
+| SECOND      | second      |
+| MILLISECOND | millisecond |
+| MICROSECOND | microsecond |
