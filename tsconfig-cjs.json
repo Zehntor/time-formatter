@@ -1,11 +1,10 @@
 {
   "extends": "./tsconfig-base.json",
   "compilerOptions": {
-    "rootDir": "./src/",
-    "outDir": "dist/cjs",
     "module": "CommonJS",
-    "target": "ES2015",
-    "moduleResolution": "node",
-    "sourceMap": true
+    "moduleResolution": "Node",
+    "outDir": "dist/cjs",
+    "rootDir": "./src/",
+    "target": "es2022"
   }
 }

@@ -9,7 +9,7 @@ import {
 } from './utils';
 import type { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
-export default (
+const formatTime = (
   time: number,
   options: Partial<Options> = DefaultOptions,
   i18n: Partial<I18n> = DefaultI18n
@@ -114,3 +114,5 @@ const getFormattedTimeComponents = (timeComponents: TimeComponents, i18n: I18n):
     (acc, [key, value]) => [...acc, pluralise(value, i18n[key].singular, i18n[key].plural)],
     [] as string[]
   );
+
+export = formatTime;

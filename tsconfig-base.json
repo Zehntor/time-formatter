@@ -6,7 +6,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "inlineSourceMap": false,
-    "lib": ["esnext"],
+    "lib": ["es2022"],
     "listEmittedFiles": false,
     "listFiles": false,
     "noImplicitAny": false,
@@ -15,6 +15,7 @@
     "noUnusedParameters": true,
     "outDir": "dist",
     "pretty": true,
+    "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "sourceMap": false,
@@ -22,7 +23,14 @@
     "strictNullChecks": true,
     "traceResolution": false,
     "typeRoots": ["node_modules/@types", "src/types"],
-    "types": ["node", "jest"],
+    "types": ["node", "jest"]
+  },
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "src/**/*.spec.ts"],

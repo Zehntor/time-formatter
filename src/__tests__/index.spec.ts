@@ -1,6 +1,6 @@
-import formatTime from '../index';
 import { TimeConstants, Units } from '../constants';
 import { I18n, Options } from '../types';
+import * as formatTime from '../index';
 
 const { ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND } = TimeConstants;
 const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MILLISECOND, ONE_MICROSECOND];
