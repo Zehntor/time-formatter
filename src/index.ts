@@ -1,12 +1,6 @@
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
-import {
-  checkMinMaxUnits,
-  getMergedDefaults,
-  getHumanReadableList,
-  pluralise,
-  roundToDecimals,
-  checkPrecision
-} from './utils';
+import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
+import {validateArguments } from './validator';
 import type { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
 const formatTime = (
@@ -15,10 +9,10 @@ const formatTime = (
   i18n: Partial<I18n> = DefaultI18n
 ): string => {
   const mergedOptions: Options = getMergedDefaults(DefaultOptions, options);
-  if (!checkPrecision(mergedOptions)) throw new Error('options.precision cannot be negative');
-  if (!checkMinMaxUnits(mergedOptions)) throw new Error('options.minUnit cannot be greater than options.maxUnit');
-
   const mergedI18n: I18n = getMergedDefaults(DefaultI18n, i18n);
+
+  const argumentsErrors: string[] = validateArguments(time, mergedOptions);
+  if (argumentsErrors.length) throw new Error(argumentsErrors.join('\n'));
 
   const timeComponents: TimeComponents = getTimeComponents(time, mergedOptions);
   const bounds: Bounds = getBounds(timeComponents);

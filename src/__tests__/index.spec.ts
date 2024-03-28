@@ -1,4 +1,4 @@
-import { TimeConstants, Units } from '../constants';
+import {DefaultOptions, TimeConstants, Units} from '../constants';
 import { I18n, Options } from '../types';
 import * as formatTime from '../index';
 
@@ -7,7 +7,27 @@ const allFactors = [ONE_WEEK, ONE_DAY, ONE_HOUR, ONE_MINUTE, ONE_SECOND, ONE_MIL
 
 const sumAll = (numbers: number[]): number => numbers.reduce((acc: number, value: number) => acc + value, 0);
 
+const validateArgumentsMock = jest
+  .fn()
+  .mockReturnValueOnce([])
+  .mockReturnValueOnce(['An error occured'])
+  .mockReturnValue([]);
+jest.mock('../validator', () => ({
+  validateArguments: (...args) => validateArgumentsMock(...args)
+}));
+
 describe('formatTime', () => {
+  describe('validate arguments', () => {
+    it('should validate the arguments', () => {
+      formatTime(42);
+      expect(validateArgumentsMock).toHaveBeenCalledWith(42, DefaultOptions);
+    });
+    it('should throw an error when the arguments are not valid', () => {
+      // @ts-ignore
+      expect(() => formatTime('a')).toThrow('An error occured');
+    });
+  });
+
   describe('singular round values', () => {
     const values = [
       [ONE_WEEK, '1 week'],
@@ -167,11 +187,6 @@ describe('formatTime', () => {
         const sum: number = ONE_DAY + ONE_HOUR + ONE_MINUTE + ONE_SECOND + ONE_MILLISECOND;
         expect(formatTime(sum, options)).toBe('25.017 hours');
       });
-
-      it('should throw an error when minUnit is greater than maxUnit', () => {
-        const options: Partial<Options> = { minUnit: Units.HOUR, maxUnit: Units.MINUTE };
-        expect(() => formatTime(60, options)).toThrow('options.minUnit cannot be greater than options.maxUnit');
-      });
     });
 
     describe('precision', () => {
@@ -188,11 +203,6 @@ describe('formatTime', () => {
       it('should be tolerant of decimal precision', () => {
         const options: Partial<Options> = { precision: Math.E, minUnit: Units.SECOND };
         expect(formatTime(1.6789, options)).toBe('1.679 seconds');
-      });
-
-      it('should throw an when the precision is negative', () => {
-        const options: Partial<Options> = { precision: -2, minUnit: Units.SECOND };
-        expect(() => formatTime(60, options)).toThrow('options.precision cannot be negative');
       });
     });
   });

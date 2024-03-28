@@ -1,6 +1,3 @@
-import { Options } from './types';
-import { Units } from './constants';
-
 /**
  * Merges the overrides with the default overrides
  * @param defaults - The default values
@@ -11,14 +8,6 @@ export const getMergedDefaults = <T>(defaults: T, overrides: Partial<T>): T => (
   ...defaults,
   ...overrides
 });
-
-export const checkMinMaxUnits = (options: Options): boolean => {
-  const minUnitIndex = Object.values(Units).indexOf(options.minUnit);
-  const maxUnitIndex = Object.values(Units).indexOf(options.maxUnit);
-  return minUnitIndex >= maxUnitIndex;
-};
-
-export const checkPrecision = (options: Options): boolean => options.precision >= 0;
 
 /**
  * Returns a human-readable list of items, with glue between them.

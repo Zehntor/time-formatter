@@ -93,11 +93,11 @@ const formattedTime = formatTime(time, [options], [i18n]);
 
 An object with the following keys:
 
-| Option    | Type   | Default value       | Description                                              |
-|-----------|--------|---------------------|----------------------------------------------------------|
-| precision | number | 3                   | The number of decimal places the smallest unit will have |
-| minUnit   | string | `Units.MILLISECOND` | The minimum unit. One of the `Units` enum                |
-| maxUnit   | string | `Units.WEEK`        | The maximum unit. One of the `Units` enum                |
+| Option    | Type   | Default value       | Description                                                  |
+|-----------|--------|---------------------|--------------------------------------------------------------|
+| precision | number | 3                   | The amount of decimal places the smallest unit will have     |
+| minUnit   | string | `Units.MILLISECOND` | The smallest unit that will be used. One of the `Units` enum |
+| maxUnit   | string | `Units.WEEK`        | The biggest unit that will be used. One of the `Units` enum  |
 
 ## I18n
 
