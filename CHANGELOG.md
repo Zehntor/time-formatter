@@ -15,5 +15,7 @@ All notable changes to this project will be documented in this file.
 - Add options
 - Add i18n
 - 100% test coverage
+- Add ESLint
+- Add Prettier
 
 ## v1.0.0 (19 March 2021)
