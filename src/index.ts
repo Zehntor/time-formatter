@@ -1,6 +1,6 @@
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
 import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
-import {validateArguments } from './validator';
+import { validateArguments } from './validator';
 import type { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
 const formatTime = (

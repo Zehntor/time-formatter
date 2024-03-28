@@ -1,4 +1,4 @@
-import {validateArguments, validateOptions, validateTime} from '../validator';
+import { validateArguments, validateOptions, validateTime } from '../validator';
 import { DefaultOptions, Units } from '../constants';
 
 describe('validator', () => {

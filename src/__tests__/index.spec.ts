@@ -1,4 +1,4 @@
-import {DefaultOptions, TimeConstants, Units} from '../constants';
+import { DefaultOptions, TimeConstants, Units } from '../constants';
 import { I18n, Options } from '../types';
 import * as formatTime from '../index';
 
