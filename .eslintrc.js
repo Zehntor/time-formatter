@@ -6,7 +6,7 @@ module.exports = {
     ecmaFeatures: {
       impliedStrict: true
     },
-    project: './tsconfig.json'
+    project: './tsconfig-eslint.json'
   },
   env: {
     node: true,
