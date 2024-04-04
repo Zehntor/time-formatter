@@ -79,13 +79,19 @@ yarn add time-formatter
 
 Start by importing.
 
-```ts
+```js
 import formatTime from 'time-formatter';
+```
+
+... or requiring.
+
+```js
+const formatTime = require('time-formatter');
 ```
 
 Then
 
-```ts
+```js
 const formattedTime = formatTime(time, [options], [i18n]);
 ```
 
@@ -101,18 +107,89 @@ An object with the following keys:
 
 ## I18n
 
-TODO
+The generated string does not have to be in English. You can specify any language, as long as it follows the format `unit1, unit2 [...] and unitN`.  
+To do so, pass the time formatter funtion an i18n object with the translations. 
 
-## Constants and types
+If you don't need to change the default options, then pass any falsy value.
 
-### enum `Units`
+### I18n keys
 
-| Key         | Value       |
-|-------------|-------------|
-| WEEK        | week        |
-| DAY         | day         |
-| HOUR        | hour        |
-| MINUTE      | minute      |
-| SECOND      | second      |
-| MILLISECOND | millisecond |
-| MICROSECOND | microsecond |
+Each i18n unit key has a mandatory `singular` key and an optional `plural` key.  
+The `and` key, used in `[...] and unitN` does not use singular or plural.
+
+```js
+const i18n = {
+  // ...
+  hour: {
+    singular: 'hora', // Mandatory
+    plural: 'horas'   // Optional, defaults to singular + 's'
+  },
+  // ...
+  and: 'e'
+};
+```
+
+| Key         | Default singular value | Default plural value |
+|-------------|------------------------|----------------------|
+| week        | 'week'                 | Singular value + 's' |
+| day         | 'day'                  | Singular value + 's' |
+| hour        | 'hour'                 | Singular value + 's' |
+| minute      | 'minute'               | Singular value + 's' |
+| second      | 'second'               | Singular value + 's' |
+| millisecond | 'millisecond'          | Singular value + 's' |
+| microsecond | 'microsecond'          | Singular value + 's' |
+| and         | 'and'                  | N/A                  |
+
+### Examples
+
+#### Full translation
+
+```js
+const fullI18n = {
+  week: {
+    singular: 'semana'
+  },
+  day: {
+    singular: 'dia'
+  },
+  hour: {
+    singular: 'hora'
+  },
+  minute: {
+    singular: 'minuto'
+  },
+  second: {
+    singular: 'segundo'
+  },
+  millisecond: {
+    singular: 'milissegundo'
+  },
+  microsecond: {
+    singular: 'microssegundo'
+  },
+  and: 'e'
+};
+
+const formattedTime = formatTime(694861.001001, null, fullI18n);
+// 1 semana, 1 dia, 1 hora, 1 minuto, 1 segundo e 1.001 milissegundos
+```
+
+#### Partial translation
+
+You can just specify shorter units, for example.
+
+```js
+const options = { minUnit: Units.MICROSECOND };
+
+const partialI18n = {
+  millisecond: {
+    singular: 'ms'
+  },
+  microsecond: {
+    singular: 'μs'
+  }
+};
+
+const formattedTime = formatTime(694861.001001, options, partialI18n);
+// 1 week, 1 day, 1 hour, 1 minute, 1 second, 1 ms and 1 μs
+```
