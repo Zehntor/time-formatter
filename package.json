@@ -23,9 +23,9 @@
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "prepare": "husky",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "publish:major": "npm version major -- force && npm publish --access=public",
-    "publish:minor": "npm version minor -- force && npm publish --access=public",
-    "publish:patch": "npm version patch -- force && npm publish --access=public",
+    "publish:major": "npm version major --force && npm publish --access=public",
+    "publish:minor": "npm version minor --force && npm publish --access=public",
+    "publish:patch": "npm version patch --force && npm publish --access=public",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage"
   },
