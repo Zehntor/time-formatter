@@ -1,6 +1,6 @@
 {
   "name": "@rwf-projects/time-formatter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Time Formatter",
   "main": "dist/cjs/index.js",
   "umd:main": "dist/umd/data-structure-typed.min.js",
