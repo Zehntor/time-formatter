@@ -4,33 +4,6 @@ The `time-formatter` package formats a number representing elapsed time into a h
 
 ## Examples
 
-### TypeScript
-
-```ts
-const formattedTime: string = formatTime(4.256128);
-// 4 seconds and 256.128 milliseconds
-```
-
-```ts
-const options: Partial<Options> = {minUnit: Units.SECOND, maxUnit: Units.HOUR};
-const formattedTime: string = formatTime(94592, options);
-// 26 hours, 16 minutes and 32 seconds
-```
-
-```ts
-const options: Partial<Options> = {minUnit: Units.MICROSECOND};
-const formattedTime: string = formatTime(32.064128, options);
-// 32 seconds, 64 milliseconds and 128 microseconds
-```
-
-```ts
-const options: Partial<Options> = {precision: 1, minUnit: Units.MICROSECOND};
-const formattedTime: string = formatTime(792496.032064128, options);
-// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
-```
-
-### JavaScript
-
 ```js
 const formattedTime = formatTime(4.256128);
 // 4 seconds and 256.128 milliseconds
@@ -56,13 +29,16 @@ const formattedTime = formatTime(792496.032064128, options);
 
 ## Features
 
-- Output units from week down to microsecond (TODO: why not higher or lower?)
+- Output units from week down to microsecond
 - Arbitrary precision in the lower unit
 
-Why not higher than week?
-- Because it is not precise enough. A week is exactly 7 days. A month can have any duration between 28 and 31 days.
+Why not bigger than week?
 
-Why not lower than microsecond?
+- Because bigger units are not precise enough. A week is exactly 7 days. A month can have any duration between 28 and 31
+  days.
+
+Why not smaller than microsecond?
+
 - Because the way JavaScript handles floating point numbers introduces errors at very small ranges.
 
 ## Installation
@@ -80,8 +56,6 @@ yarn add time-formatter
 ```
 
 ## Usage
-
-### JavaScript
 
 Start by importing.
 
@@ -105,16 +79,17 @@ const formattedTime = formatTime(time, [options], [i18n]);
 
 An object with the following keys:
 
-| Option    | Type   | Default value       | Description                                                  |
-|-----------|--------|---------------------|--------------------------------------------------------------|
-| precision | number | 3                   | The amount of decimal places the smallest unit will have     |
-| minUnit   | string | `Units.MILLISECOND` | The smallest unit that will be used. One of the `Units` enum |
-| maxUnit   | string | `Units.WEEK`        | The biggest unit that will be used. One of the `Units` enum  |
+| Option    | Type   | Default value | Description                                                                                                    |
+|-----------|--------|---------------|----------------------------------------------------------------------------------------------------------------|
+| precision | number | 3             | The amount of decimal places the smallest unit will have                                                       |
+| minUnit   | string | 'millisecond' | The smallest unit that will be used. 'week', 'day', 'hour', 'minute', 'second', 'millisecond' or 'microsecond' |
+| maxUnit   | string | 'week'        | The biggest unit that will be used. 'week', 'day', 'hour', 'minute', 'second', 'millisecond' or 'microsecond'  |
 
 ## I18n
 
-The generated string does not have to be in English. You can specify any language, as long as it follows the format `unit1, unit2 [...] and unitN`.  
-To do so, pass the time formatter funtion an i18n object with the translations. 
+The generated string does not have to be in English. You can specify any language, as long as it follows the
+format `unit1, unit2 [...] and unitN`.  
+To do so, pass the time formatter funtion an i18n object with the translations.
 
 If you don't need to change the default options, then pass any falsy value.
 
@@ -185,7 +160,7 @@ const formattedTime = formatTime(694861.001001, null, fullI18n);
 You can just specify shorter units, for example.
 
 ```js
-const options = { minUnit: Units.MICROSECOND };
+const options = {minUnit: Units.MICROSECOND};
 
 const partialI18n = {
   millisecond: {
