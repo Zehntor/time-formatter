@@ -33,6 +33,7 @@ const formattedTime = formatTime(792496.032064128, options);
 - Output units from weeks down to microsecond;
 - Minimum and maximum units are configurable;
 - Arbitrary precision in the lower unit;
+- Translatable;
 - Works with `require` and `import`.
 
 ### Available units
