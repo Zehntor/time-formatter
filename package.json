@@ -1,6 +1,6 @@
 {
   "name": "@rwf-projects/time-formatter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Time Formatter",
   "main": "dist/cjs/index.js",
   "umd:main": "dist/umd/data-structure-typed.min.js",
@@ -16,15 +16,18 @@
   },
   "scripts": {
     "build": "rm -rf dist && npm run build:mjs && npm run build:cjs && npm run build:umd",
-    "build:mjs": "rm -rf dist/mjs && tsc -p tsconfig-mjs.json",
     "build:cjs": "rm -rf dist/cjs && tsc -p tsconfig-cjs.json",
+    "build:mjs": "rm -rf dist/mjs && tsc -p tsconfig-mjs.json",
     "build:umd": "tsup",
-    "test": "jest --verbose",
-    "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
+    "prepare": "husky",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "prepare": "husky"
+    "publish:major": "npm version major && npm publish --access=public",
+    "publish:minor": "npm version minor && npm publish --access=public",
+    "publish:patch": "npm version patch && npm publish --access=public",
+    "test": "jest --verbose",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "time",
