@@ -1,7 +1,7 @@
 {
   "name": "@rwf-projects/time-formatter",
   "version": "1.0.3",
-  "description": "Time Formatter",
+  "description": "Converts a number representing a time interval into a nice human-readable string",
   "main": "dist/cjs/index.js",
   "umd:main": "dist/umd/data-structure-typed.min.js",
   "module": "dist/mjs/index.js",

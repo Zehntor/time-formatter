@@ -1,6 +1,6 @@
 # time-formatter
 
-The `time-formatter` package formats a number representing elapsed time into a human readable string.
+The `time-formatter` package converts a number representing elapsed time into a human readable string.
 
 ## Examples
 
@@ -10,36 +10,44 @@ const formattedTime = formatTime(4.256128);
 ```
 
 ```js
-const options = {minUnit: Units.SECOND, maxUnit: Units.HOUR};
+const options = {minUnit: 'second', maxUnit: 'hour'};
 const formattedTime = formatTime(94592, options);
 // 26 hours, 16 minutes and 32 seconds
 ```
 
 ```js
-const options = {minUnit: Units.MICROSECOND};
+const options = {minUnit: 'microsecond'};
 const formattedTime = formatTime(32.064128, options);
 // 32 seconds, 64 milliseconds and 128 microseconds
 ```
 
 ```js
-const options = {precision: 1, minUnit: Units.MICROSECOND};
+const options = {precision: 1, minUnit: 'microsecond'};
 const formattedTime = formatTime(792496.032064128, options);
 // 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
 ```
 
 ## Features
 
-- Output units from week down to microsecond
-- Arbitrary precision in the lower unit
+- Outputs a nice human-readable string representig a time interval;
+- Output units from weeks down to microsecond;
+- Minimum and maximum units are configurable;
+- Arbitrary precision in the lower unit;
+- Works with `require` and `import`.
 
-Why not bigger than week?
+### Available units
+
+The available units are `week`, `day`, `hour`, `minute`, `second`, `millisecond` and `microsecond`.
+
+Why not bigger than `week`?
 
 - Because bigger units are not precise enough. A week is exactly 7 days. A month can have any duration between 28 and 31
   days.
 
-Why not smaller than microsecond?
+Why not smaller than `microsecond`?
 
-- Because the way JavaScript handles floating point numbers introduces errors at very small ranges.
+- Because the way JavaScript handles floating point numbers introduces errors at very small ranges;
+- It is also the maximum precision `performance.now` returns. 
 
 ## Installation
 
@@ -79,11 +87,11 @@ const formattedTime = formatTime(time, [options], [i18n]);
 
 An object with the following keys:
 
-| Option    | Type   | Default value | Description                                                                                                    |
-|-----------|--------|---------------|----------------------------------------------------------------------------------------------------------------|
-| precision | number | 3             | The amount of decimal places the smallest unit will have                                                       |
-| minUnit   | string | 'millisecond' | The smallest unit that will be used. 'week', 'day', 'hour', 'minute', 'second', 'millisecond' or 'microsecond' |
-| maxUnit   | string | 'week'        | The biggest unit that will be used. 'week', 'day', 'hour', 'minute', 'second', 'millisecond' or 'microsecond'  |
+| Option    | Type   | Default value | Description                                                     |
+|-----------|--------|---------------|-----------------------------------------------------------------|
+| precision | number | 3             | The amount of decimal places the smallest unit will have        |
+| minUnit   | string | 'millisecond' | The smallest unit that will be used. One of the available units |
+| maxUnit   | string | 'week'        | The biggest unit that will be used. One of the available units  |
 
 ## I18n
 
@@ -160,7 +168,7 @@ const formattedTime = formatTime(694861.001001, null, fullI18n);
 You can just specify shorter units, for example.
 
 ```js
-const options = {minUnit: Units.MICROSECOND};
+const options = {minUnit: 'microsecond'};
 
 const partialI18n = {
   millisecond: {
