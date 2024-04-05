@@ -59,6 +59,12 @@ const formattedTime = formatTime(792496.032064128, options);
 - Output units from week down to microsecond (TODO: why not higher or lower?)
 - Arbitrary precision in the lower unit
 
+Why not higher than week?
+- Because it is not precise enough. A week is exactly 7 days. A month can have any duration between 28 and 31 days.
+
+Why not lower than microsecond?
+- Because the way JavaScript handles floating point numbers introduces errors at very small ranges.
+
 ## Installation
 
 ### npm
@@ -80,13 +86,13 @@ yarn add time-formatter
 Start by importing.
 
 ```js
-import formatTime from 'time-formatter';
+import formatTime from '@rwf-projects/time-formatter';
 ```
 
 ... or requiring.
 
 ```js
-const formatTime = require('time-formatter');
+const formatTime = require('@rwf-projects/time-formatter');
 ```
 
 Then

@@ -28,7 +28,11 @@
   },
   "keywords": [
     "time",
-    "formatter"
+    "formatter",
+    "time formatter",
+    "human",
+    "readable",
+    "human readable"
   ],
   "author": "RWF Projects",
   "license": "MIT",
