@@ -173,10 +173,12 @@ const options = {minUnit: 'microsecond'};
 
 const partialI18n = {
   millisecond: {
-    singular: 'ms'
+    singular: 'ms',
+    plural: 'ms'
   },
   microsecond: {
-    singular: 'μs'
+    singular: 'μs',
+    plural: 'μs'
   }
 };
 
