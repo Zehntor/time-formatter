@@ -1,6 +1,6 @@
 {
   "name": "@rwf-projects/time-formatter",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "Converts a number representing a time interval into a nice human-readable string",
   "main": "dist/cjs/index.js",
   "umd:main": "dist/umd/data-structure-typed.min.js",
@@ -39,6 +39,13 @@
   ],
   "author": "RWF Projects",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Zehntor/time-formatter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zehntor/time-formatter/issues"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
