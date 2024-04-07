@@ -41,7 +41,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Zehntor/time-formatter.git"
+    "url": "git@github.com:Zehntor/time-formatter.git"
   },
   "bugs": {
     "url": "https://github.com/Zehntor/time-formatter/issues"
