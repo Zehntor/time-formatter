@@ -39,6 +39,10 @@
   ],
   "author": "RWF Projects",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zehntor/time-formatter.git"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
