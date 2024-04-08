@@ -14,6 +14,7 @@
       "types": "./dist/mjs/types/index.d.ts"
     }
   },
+  "files": ["LICENSE", "CHANGELOG.md", "./dist"],
   "scripts": {
     "build": "rm -rf dist && npm run build:mjs && npm run build:cjs && npm run build:umd",
     "build:cjs": "rm -rf dist/cjs && tsc -p tsconfig-cjs.json",
