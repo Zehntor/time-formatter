@@ -4,7 +4,7 @@ The `time-formatter` package converts a number representing elapsed time into a 
 
 ## Examples
 
-<details>
+<details open>
 <summary><strong>JavaScript</strong></summary>
 
 ```js
@@ -100,7 +100,7 @@ yarn add time-formatter
 
 ## Usage
 
-<details>
+<details open>
 <summary><strong>JavaScript</strong></summary>
 
 Start by importing.
@@ -159,13 +159,13 @@ The `and` key, used in `[...] and unitN` does not use singular or plural.
 
 | Key in JS   | Key in TS         | Default singular value | Default plural value |
 | ----------- | ----------------- | ---------------------- | -------------------- |
-| week        | Units.WEEK        | 'week'                 | Singular value + 's' |
-| day         | Units.DAY         | 'day'                  | Singular value + 's' |
-| hour        | Units.HOUR        | 'hour'                 | Singular value + 's' |
-| minute      | Units.MINUTE      | 'minute'               | Singular value + 's' |
-| second      | Units.SECOND      | 'second'               | Singular value + 's' |
-| millisecond | Units.MILLISECOND | 'millisecond'          | Singular value + 's' |
-| microsecond | Units.MICROSECOND | 'microsecond'          | Singular value + 's' |
+| week        | `Units.WEEK`        | 'week'                 | Singular value + 's' |
+| day         | `Units.DAY`         | 'day'                  | Singular value + 's' |
+| hour        | `Units.HOUR`        | 'hour'                 | Singular value + 's' |
+| minute      | `Units.MINUTE`      | 'minute'               | Singular value + 's' |
+| second      | `Units.SECOND`      | 'second'               | Singular value + 's' |
+| millisecond | `Units.MILLISECOND` | 'millisecond'          | Singular value + 's' |
+| microsecond | `Units.MICROSECOND` | 'microsecond'          | Singular value + 's' |
 | and         | and               | 'and'                  | N/A                  |
 
 ### Examples
@@ -174,8 +174,8 @@ The `and` key, used in `[...] and unitN` does not use singular or plural.
 
 You can translate all the keys.
 
-<details>
-<summary>JavaScript example</summary>
+<details open>
+<summary><strong>JavaScript example</strong></summary>
 
 ```js
 const fullI18n = {
@@ -210,7 +210,7 @@ const formattedTime = formatTime(694861.001001, null, fullI18n);
 </details>
 
 <details>
-<summary>TypeScript example</summary>
+<summary><strong>TypeScript example</strong></summary>
 
 ```ts
 const fullI18n: I18n = {
@@ -248,8 +248,8 @@ const formattedTime: string = formatTime(694861.001001, null, fullI18n);
 
 You can just specify shorter units, for example.
 
-<details>
-<summary>JavaScript example</summary>
+<details open>
+<summary><strong>JavaScript example</strong></summary>
 
 ```js
 const options = { minUnit: 'microsecond' };
@@ -272,7 +272,7 @@ const formattedTime = formatTime(694861.001001, options, partialI18n);
 </details>
 
 <details>
-<summary>TypeScript example</summary>
+<summary><strong>TypeScript example</strong></summary>
 
 ```ts
 const options: Partial<Options> = { minUnit: 'microsecond' };
