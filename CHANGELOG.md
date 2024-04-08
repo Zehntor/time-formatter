@@ -18,4 +18,12 @@ All notable changes to this project will be documented in this file.
 - Add ESLint
 - Add Prettier
 
-## v1.0.0 (19 March 2021)
+## [v1.0.7](https://github.com/Zehntor/time-formatter/compare)
+
+### Changes
+- First JavaScript full working version 
+
+## [v1.0.0](https://github.com/Zehntor/time-formatter/compare) (19 March 2021)
+
+### Changes
+- POC 
