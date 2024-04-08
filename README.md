@@ -278,11 +278,11 @@ const formattedTime = formatTime(694861.001001, options, partialI18n);
 const options: Partial<Options> = { minUnit: 'microsecond' };
 
 const partialI18n: Partial<I18n> = {
-  millisecond: {
+  [Units.MILLISECOND]: {
     singular: 'ms',
     plural: 'ms'
   },
-  microsecond: {
+  [Units.MICROSECOND]: {
     singular: 'μs',
     plural: 'μs'
   }
