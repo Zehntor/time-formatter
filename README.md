@@ -4,28 +4,61 @@ The `time-formatter` package converts a number representing elapsed time into a 
 
 ## Examples
 
+<details>
+<summary><strong>JavaScript</strong></summary>
+
 ```js
+import { formatTime } from '@rwf-projects/time-formatter';
+
 const formattedTime = formatTime(4.256128);
 // 4 seconds and 256.128 milliseconds
 ```
 
 ```js
-const options = {minUnit: 'second', maxUnit: 'hour'};
+import { formatTime } from '@rwf-projects/time-formatter';
+
+const options = { minUnit: 'second', maxUnit: 'hour' };
 const formattedTime = formatTime(94592, options);
 // 26 hours, 16 minutes and 32 seconds
 ```
 
 ```js
-const options = {minUnit: 'microsecond'};
-const formattedTime = formatTime(32.064128, options);
-// 32 seconds, 64 milliseconds and 128 microseconds
-```
+import { formatTime } from '@rwf-projects/time-formatter';
 
-```js
-const options = {precision: 1, minUnit: 'microsecond'};
+const options = { precision: 1, minUnit: 'microsecond' };
 const formattedTime = formatTime(792496.032064128, options);
 // 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
 ```
+
+</details>
+
+<details>
+<summary><strong>TypeScript</strong></summary>
+
+```ts
+import { formatTime } from '@rwf-projects/time-formatter';
+
+const formattedTime: string = formatTime(4.256128);
+// 4 seconds and 256.128 milliseconds
+```
+
+```ts
+import { formatTime, Options, Units } from '@rwf-projects/time-formatter';
+
+const options: Partial<Options> = { minUnit: Units.SECOND, maxUnit: Units.HOUR };
+const formattedTime: string = formatTime(94592, options);
+// 26 hours, 16 minutes and 32 seconds
+```
+
+```ts
+import { formatTime, Options, Units } from '@rwf-projects/time-formatter';
+
+const options: Partial<Options> = { precision: 1, minUnit: Units.MICROSECOND };
+const formattedTime: string = formatTime(792496.032064128, options);
+// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
+```
+
+</details>
 
 ## Features
 
@@ -38,7 +71,8 @@ const formattedTime = formatTime(792496.032064128, options);
 
 ### Available units
 
-The available units are `week`, `day`, `hour`, `minute`, `second`, `millisecond` and `microsecond`.
+The available units are `week`, `day`, `hour`, `minute`, `second`, `millisecond` and `microsecond`.  
+In TypeScript these units are available through the `Units` enum.
 
 Why not bigger than `week`?
 
@@ -48,7 +82,7 @@ Why not bigger than `week`?
 Why not smaller than `microsecond`?
 
 - Because the way JavaScript handles floating point numbers introduces errors at very small ranges;
-- It is also the maximum precision `performance.now` returns. 
+- It is also the maximum precision `performance.now` returns.
 
 ## Installation
 
@@ -66,16 +100,19 @@ yarn add time-formatter
 
 ## Usage
 
+<details>
+<summary><strong>JavaScript</strong></summary>
+
 Start by importing.
 
 ```js
-import formatTime from '@rwf-projects/time-formatter';
+import { formatTime } from '@rwf-projects/time-formatter';
 ```
 
 ... or requiring.
 
 ```js
-const formatTime = require('@rwf-projects/time-formatter');
+const { formatTime } = require('@rwf-projects/time-formatter');
 ```
 
 Then
@@ -84,15 +121,28 @@ Then
 const formattedTime = formatTime(time, [options], [i18n]);
 ```
 
+</details>
+
+<details>
+<summary><strong>TypeScript</strong></summary>
+
+```ts
+import { formatTime, Options, I18n } from '@rwf-projects/time-formatter';
+
+const formattedTime: string = formatTime(time, [options], [i18n]);
+```
+
+</details>
+
 ## Options
 
 An object with the following keys:
 
-| Option    | Type   | Default value | Description                                                     |
-|-----------|--------|---------------|-----------------------------------------------------------------|
-| precision | number | 3             | The amount of decimal places the smallest unit will have        |
-| minUnit   | string | 'millisecond' | The smallest unit that will be used. One of the available units |
-| maxUnit   | string | 'week'        | The biggest unit that will be used. One of the available units  |
+| Option    | Type   | Default value in JS | Default value in TS | Description                                                     |
+| --------- | ------ | ------------------- | ------------------- | --------------------------------------------------------------- |
+| precision | number | 3                   | 3                   | The amount of decimal places the smallest unit will have        |
+| minUnit   | string | 'millisecond'       | `Units.MILLISECOND` | The smallest unit that will be used. One of the available units |
+| maxUnit   | string | 'week'              | `Units.WEEK`        | The biggest unit that will be used. One of the available units  |
 
 ## I18n
 
@@ -107,20 +157,8 @@ If you don't need to change the default options, then pass any falsy value.
 Each i18n unit key has a mandatory `singular` key and an optional `plural` key.  
 The `and` key, used in `[...] and unitN` does not use singular or plural.
 
-```js
-const i18n = {
-  // ...
-  hour: {
-    singular: 'hora', // Mandatory
-    plural: 'horas'   // Optional, defaults to singular + 's'
-  },
-  // ...
-  and: 'e'
-};
-```
-
 | Key         | Default singular value | Default plural value |
-|-------------|------------------------|----------------------|
+| ----------- | ---------------------- | -------------------- |
 | week        | 'week'                 | Singular value + 's' |
 | day         | 'day'                  | Singular value + 's' |
 | hour        | 'hour'                 | Singular value + 's' |
@@ -133,6 +171,11 @@ const i18n = {
 ### Examples
 
 #### Full translation
+
+You can translate all the keys.
+
+<details>
+<summary>JavaScript example</summary>
 
 ```js
 const fullI18n = {
@@ -164,22 +207,89 @@ const formattedTime = formatTime(694861.001001, null, fullI18n);
 // 1 semana, 1 dia, 1 hora, 1 minuto, 1 segundo e 1.001 milissegundos
 ```
 
+</details>
+
+<details>
+<summary>TypeScript example</summary>
+
+```ts
+const fullI18n: I18n = {
+  [Units.WEEK]: {
+    singular: 'semana'
+  },
+  [Units.DAY]: {
+    singular: 'dia'
+  },
+  [Units.HOUR]: {
+    singular: 'hora'
+  },
+  [Units.MINUTE]: {
+    singular: 'minuto'
+  },
+  [Units.SECOND]: {
+    singular: 'segundo'
+  },
+  [Units.MILLISECOND]: {
+    singular: 'milissegundo'
+  },
+  [Units.MICROSECOND]: {
+    singular: 'microssegundo'
+  },
+  and: 'e'
+};
+
+const formattedTime: string = formatTime(694861.001001, null, fullI18n);
+// 1 semana, 1 dia, 1 hora, 1 minuto, 1 segundo e 1.001 milissegundos
+```
+
+</details>
+
 #### Partial translation
 
 You can just specify shorter units, for example.
 
+<details>
+<summary>JavaScript example</summary>
+
 ```js
-const options = {minUnit: 'microsecond'};
+const options = { minUnit: 'microsecond' };
 
 const partialI18n = {
   millisecond: {
-    singular: 'ms'
+    singular: 'ms',
+    plural: 'ms'
   },
   microsecond: {
-    singular: 'μs'
+    singular: 'μs',
+    plural: 'μs'
   }
 };
 
 const formattedTime = formatTime(694861.001001, options, partialI18n);
 // 1 week, 1 day, 1 hour, 1 minute, 1 second, 1 ms and 1 μs
 ```
+
+</details>
+
+<details>
+<summary>TypeScript example</summary>
+
+```ts
+const options: Partial<Options> = {minUnit: 'microsecond'};
+
+const partialI18n: Partial<I18n> = {
+  millisecond: {
+    singular: 'ms',
+    plural: 'ms'
+  },
+  microsecond: {
+    singular: 'μs',
+    plural: 'μs'
+  }
+};
+
+const formattedTime: string = formatTime(694861.001001, options, partialI18n);
+// 1 week, 1 day, 1 hour, 1 minute, 1 second, 1 ms and 1 μs
+```
+
+</details>

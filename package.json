@@ -11,7 +11,7 @@
     ".": {
       "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js",
-      "types": "./dist/mjs/index.d.ts"
+      "types": "./dist/mjs/types/index.d.ts"
     }
   },
   "scripts": {

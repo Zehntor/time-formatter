@@ -1,5 +1,6 @@
 import { I18n, Options, UnitTimeMap } from './types';
 
+// To be exported
 export enum Units {
   WEEK = 'week',
   DAY = 'day',
@@ -20,6 +21,7 @@ export enum TimeConstants {
   ONE_MICROSECOND = 1e-6
 }
 
+// Private
 export const DefaultUnitTimeMap: UnitTimeMap = {
   [Units.WEEK]: TimeConstants.ONE_WEEK,
   [Units.DAY]: TimeConstants.ONE_DAY,
