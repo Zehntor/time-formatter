@@ -157,16 +157,16 @@ If you don't need to change the default options, then pass any falsy value.
 Each i18n unit key has a mandatory `singular` key and an optional `plural` key.  
 The `and` key, used in `[...] and unitN` does not use singular or plural.
 
-| Key         | Default singular value | Default plural value |
-| ----------- | ---------------------- | -------------------- |
-| week        | 'week'                 | Singular value + 's' |
-| day         | 'day'                  | Singular value + 's' |
-| hour        | 'hour'                 | Singular value + 's' |
-| minute      | 'minute'               | Singular value + 's' |
-| second      | 'second'               | Singular value + 's' |
-| millisecond | 'millisecond'          | Singular value + 's' |
-| microsecond | 'microsecond'          | Singular value + 's' |
-| and         | 'and'                  | N/A                  |
+| Key in JS   | Key in TS         | Default singular value | Default plural value |
+| ----------- | ----------------- | ---------------------- | -------------------- |
+| week        | Units.WEEK        | 'week'                 | Singular value + 's' |
+| day         | Units.DAY         | 'day'                  | Singular value + 's' |
+| hour        | Units.HOUR        | 'hour'                 | Singular value + 's' |
+| minute      | Units.MINUTE      | 'minute'               | Singular value + 's' |
+| second      | Units.SECOND      | 'second'               | Singular value + 's' |
+| millisecond | Units.MILLISECOND | 'millisecond'          | Singular value + 's' |
+| microsecond | Units.MICROSECOND | 'microsecond'          | Singular value + 's' |
+| and         | and               | 'and'                  | N/A                  |
 
 ### Examples
 
@@ -275,7 +275,7 @@ const formattedTime = formatTime(694861.001001, options, partialI18n);
 <summary>TypeScript example</summary>
 
 ```ts
-const options: Partial<Options> = {minUnit: 'microsecond'};
+const options: Partial<Options> = { minUnit: 'microsecond' };
 
 const partialI18n: Partial<I18n> = {
   millisecond: {
