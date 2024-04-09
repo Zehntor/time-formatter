@@ -1,8 +1,10 @@
-import { TimeConstants, Units } from '../constants';
+import { TimeConstants, Units } from './constants';
 
-export type SingularPlural = {
-  singular: string;
-  plural?: string;
+// To be exported
+export type Options = {
+  precision: number;
+  minUnit: Units;
+  maxUnit: Units;
 };
 
 export type I18n = {
@@ -16,12 +18,12 @@ export type I18n = {
   and: string;
 };
 
-export type Options = {
-  precision: number;
-  minUnit: Units;
-  maxUnit: Units;
+export type SingularPlural = {
+  singular: string;
+  plural?: string;
 };
 
+// Private
 export type TimeComponents = {
   [key in Units]?: number;
 };
