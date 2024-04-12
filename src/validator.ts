@@ -12,7 +12,7 @@ export const validateArguments = (time: number, options: Options) => [
  * Exported so it can be tested
  * @param time
  */
-export const validateTime = (time: any): string[] => [...(isNaN(time) ? ['time must be a number'] : [])];
+export const validateTime = (time: unknown): string[] => [...(Number.isNaN(Number(time)) ? ['time must be a number'] : [])];
 
 /**
  * Validates options
