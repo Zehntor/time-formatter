@@ -23,7 +23,7 @@ describe('formatTime', () => {
       expect(validateArgumentsMock).toHaveBeenCalledWith(42, DefaultOptions);
     });
     it('should throw an error when the arguments are not valid', () => {
-      // @ts-ignore
+      // @ts-expect-error An error occured
       expect(() => formatTime('a')).toThrow('An error occured');
     });
   });

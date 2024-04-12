@@ -30,7 +30,7 @@ describe('validator', () => {
     it('should check that precision is a number', () => {
       const result: string[] = validateOptions({
         ...DefaultOptions,
-        // @ts-ignore
+        // @ts-expect-error not a number
         precision: 'not a number'
       });
 
@@ -49,7 +49,7 @@ describe('validator', () => {
     it('should check that minUnit is valid', () => {
       const result: string[] = validateOptions({
         ...DefaultOptions,
-        // @ts-ignore
+        // @ts-expect-error invalid
         minUnit: 'invalid'
       });
 
@@ -61,7 +61,7 @@ describe('validator', () => {
     it('should check that maxUnit is valid', () => {
       const result: string[] = validateOptions({
         ...DefaultOptions,
-        // @ts-ignore
+        // @ts-expect-error invalid
         maxUnit: 'invalid'
       });
 
