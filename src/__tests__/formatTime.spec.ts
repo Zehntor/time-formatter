@@ -235,10 +235,12 @@ describe('formatTime', () => {
     const options: Partial<Options> = { minUnit: Units.MICROSECOND };
     const partialI18n: Partial<I18n> = {
       millisecond: {
-        singular: 'ms'
+        singular: 'ms',
+        plural: 'ms'
       },
       microsecond: {
-        singular: 'μs'
+        singular: 'μs',
+        plural: 'μs'
       }
     };
 
