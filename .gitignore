@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+
+/tests/**/node_modules/
+/tests/**/dist/

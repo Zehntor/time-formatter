@@ -1,0 +1,13 @@
+{
+  "name": "js-require",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "link": "npm link @rwf-projects/time-formatter",
+    "test": "jest --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

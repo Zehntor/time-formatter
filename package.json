@@ -19,6 +19,7 @@
     "build:cjs": "rm -rf dist/cjs && tsc -p tsconfig-cjs.json",
     "build:mjs": "rm -rf dist/mjs && tsc -p tsconfig-mjs.json",
     "build:umd": "tsup",
+    "link": "./scripts/link-imports-and-require.sh",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "prepare": "husky",
@@ -26,7 +27,11 @@
     "publish:major": "npm version major --force && npm publish --access=public",
     "publish:minor": "npm version minor --force && npm publish --access=public",
     "publish:patch": "npm version patch --force && npm publish --access=public",
-    "test": "jest --verbose",
+    "test": "jest --verbose --testPathIgnorePatterns /tests/",
+    "test:js-import": "npm run test --prefix ./tests/js-import",
+    "test:js-require": "npm run test --prefix ./tests/js-require",
+    "test:ts-import": "npm run test --prefix ./tests/ts-import",
+    "test:imports-and-requires": "npm run link && npm run test:js-import && npm run test:js-require && npm run test:ts-import",
     "test:coverage": "jest --coverage"
   },
   "keywords": [
