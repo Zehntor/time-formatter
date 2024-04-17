@@ -63,29 +63,29 @@ describe('getHumanReadableList', () => {
 });
 
 describe('pluralise', () => {
-  const valuesWithoutPlural = [
-    [0, 'location', '0 locations'],
-    [0.8, 'location', '0.8 locations'],
-    [1, 'location', '1 location'],
-    [1.2, 'location', '1.2 locations'],
-    [2, 'location', '2 locations']
-  ];
-  const valuesWithPlural = [
-    [0, 'ox', 'oxen', '0 oxen'],
-    [1, 'ox', 'oxen', '1 ox'],
-    [2, 'ox', 'oxen', '2 oxen']
+  const values = [
+    [0, 'location', undefined, true, '0 locations'],
+    [0.8, 'location', undefined, true, '0.8 locations'],
+    [1, 'location', undefined, true, '1 location'],
+    [1.2, 'location', undefined, true, '1.2 locations'],
+    [2, 'location', undefined, true, '2 locations'],
+    [0, 'ox', 'oxen', true, '0 oxen'],
+    [1, 'ox', 'oxen', true, '1 ox'],
+    [2, 'ox', 'oxen', true, '2 oxen'],
+
+    [0, 'location', undefined, false, 'locations'],
+    [0.8, 'location', undefined, false, 'locations'],
+    [1, 'location', undefined, false, 'location'],
+    [1.2, 'location', undefined, false, 'locations'],
+    [2, 'location', undefined, false, 'locations'],
+    [0, 'ox', 'oxen', false, 'oxen'],
+    [1, 'ox', 'oxen', false, 'ox'],
+    [2, 'ox', 'oxen', false, 'oxen']
   ];
 
-  it.each(valuesWithoutPlural)("%d of '%s' should be '%s'", (number: number, singular: string, result: string) => {
-    expect(pluralise(number, singular)).toBe(result);
+  it.each(values)("plural of ('%d', '%s', '%s', '%s') should be '%s'", (number: number, singular: string, plural: string, includeNumber: boolean, result: string) => {
+    expect(pluralise(number, singular, plural, includeNumber)).toBe(result);
   });
-
-  it.each(valuesWithPlural)(
-    "%d of '%s', '%s' should be '%s'",
-    (number: number, singular: string, plural: string, result: string) => {
-      expect(pluralise(number, singular, plural)).toBe(result);
-    }
-  );
 });
 
 describe('roundToDecimals', () => {

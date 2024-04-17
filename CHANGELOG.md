@@ -19,3 +19,5 @@ All notable changes to this project will be documented in this file.
 - Add Prettier
 
 ## v1.0.0 (19 March 2021)
+
+Original Javascript version.

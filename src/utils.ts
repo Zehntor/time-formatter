@@ -24,10 +24,18 @@ export const getHumanReadableList = (list: string[] = [], glue: string = 'and'):
  * @param number - The number of items
  * @param singular - The singular form of the word
  * @param plural - The plural form of the word (defaults to the singular form with an s)
+ * @param includeNumber - A flag indicating if the number should be included in the pluralised string or not
  * @returns The pluralised word
  */
-export const pluralise = (number: number, singular: string, plural: string = singular + 's'): string =>
-  number === 1 ? `1 ${singular}` : `${number} ${plural}`;
+export const pluralise = (
+  number: number,
+  singular: string,
+  plural: string = singular + 's',
+  includeNumber = true
+): string => {
+  if (includeNumber) return (number === 1 ? `1 ${singular}` : `${number} ${plural}`);
+  return number === 1 ? singular : plural;
+};
 
 /**
  * Rounds a number to some decimals
