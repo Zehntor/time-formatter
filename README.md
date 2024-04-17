@@ -67,7 +67,9 @@ const formattedTime: string = formatTime(792496.032064128, options);
 - Minimum and maximum units are configurable;
 - Arbitrary precision in the lower unit;
 - Translatable;
-- Works with `require` and `import`.
+- Works with `require` and `import`;
+- Zero dependencies;
+- 100% test coverage.
 
 ### Available units
 
