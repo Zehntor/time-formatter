@@ -33,7 +33,7 @@ export const pluralise = (
   plural: string = singular + 's',
   includeNumber = true
 ): string => {
-  if (includeNumber) return (number === 1 ? `1 ${singular}` : `${number} ${plural}`);
+  if (includeNumber) return number === 1 ? `1 ${singular}` : `${number} ${plural}`;
   return number === 1 ? singular : plural;
 };
 
@@ -41,7 +41,7 @@ export const pluralise = (
  * Rounds a number to some decimals
  * @param {number} number - The number to round
  * @param {number} decimals - the number of decimal places
- * @returns {number} - The rounded number
+ * @returns The rounded number
  */
 export const roundToDecimals = (number: number, decimals = 3) => {
   const exponent = 10 ** decimals;

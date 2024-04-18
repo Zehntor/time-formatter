@@ -8,9 +8,19 @@ All notable changes to this project will be documented in this file.
 - [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - [`auto-changelog`](https://github.com/CookPete/auto-changelog)
 
+## [Unreleased]
+
+### Changed
+
+- Updated dependencies
+
+### Fixed
+
+- Fixed ESLint and Prettier configuration
+
 ## [v2.0.0](https://github.com/Zehntor/time-formatter/compare) (upcoming)
 
-### Changes
+### Changed
 - Convert to TypeScript
 - Add options
 - Add i18n
