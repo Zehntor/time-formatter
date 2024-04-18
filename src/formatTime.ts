@@ -99,6 +99,7 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
   );
 
 /**
+ * Formats the time components into a human-readable format
  * @param timeComponents - The time components to format
  * @param i18n - The full i18n strings
  * @returns An array of strings representing the formatted time components

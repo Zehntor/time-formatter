@@ -83,9 +83,12 @@ describe('pluralise', () => {
     [2, 'ox', 'oxen', false, 'oxen']
   ];
 
-  it.each(values)("plural of ('%d', '%s', '%s', '%s') should be '%s'", (number: number, singular: string, plural: string, includeNumber: boolean, result: string) => {
-    expect(pluralise(number, singular, plural, includeNumber)).toBe(result);
-  });
+  it.each(values)(
+    "plural of ('%d', '%s', '%s', '%s') should be '%s'",
+    (number: number, singular: string, plural: string, includeNumber: boolean, result: string) => {
+      expect(pluralise(number, singular, plural, includeNumber)).toBe(result);
+    }
+  );
 });
 
 describe('roundToDecimals', () => {
