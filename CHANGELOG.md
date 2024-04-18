@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## References
 
-- [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+- [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-- [`auto-changelog`](https://github.com/CookPete/auto-changelog)
 
-## [Unreleased]
+## Unreleased
+
+### Added
+
+- JS import, JS require and TS import tests
+- Add a code of conduct
 
 ### Changed
 
@@ -18,9 +22,26 @@ All notable changes to this project will be documented in this file.
 
 - Fixed ESLint and Prettier configuration
 
-## [v2.0.0](https://github.com/Zehntor/time-formatter/compare) (upcoming)
+## v2.0.0 (9 April 2024)
 
 ### Changed
+
+- Replace default export with named export
+- Export types and enums
+
+### v1.0.1 to v1.0.7 (April 2024)
+
+### Added
+
+- Validate all input
+- Commit hooks
+- Better documentation
+- Better package.json
+- Import or require
+- A changelog
+
+### Changed
+
 - Convert to TypeScript
 - Add options
 - Add i18n
