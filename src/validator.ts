@@ -1,5 +1,5 @@
 import { Options } from './types';
-import {DefaultOptions, Units} from './constants';
+import { DefaultOptions, Units } from './constants';
 import { getHumanReadableList } from './utils';
 
 export const validateArguments = (time: number, options: Options) => [

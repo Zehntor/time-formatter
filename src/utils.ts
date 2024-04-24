@@ -58,4 +58,4 @@ export const roundToDecimals = (number: number, decimals = 3) => {
  * @returns The converted time
  */
 export const convertTime = (time: number, from: Units, to: Units): number =>
-  time * DefaultUnitTimeMap[from] / DefaultUnitTimeMap[to];
+  (time * DefaultUnitTimeMap[from]) / DefaultUnitTimeMap[to];

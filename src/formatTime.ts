@@ -1,5 +1,5 @@
 import { DefaultI18n, DefaultOptions, DefaultUnitTimeMap, Units } from './constants';
-import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from './utils';
+import { convertTime, getHumanReadableList, getMergedDefaults, pluralise, roundToDecimals } from './utils';
 import { validateArguments } from './validator';
 import type { Bounds, I18n, Options, TimeComponents, UnitTimeMap } from './types';
 
@@ -14,7 +14,9 @@ export const formatTime = (
   const argumentsErrors: string[] = validateArguments(time, mergedOptions);
   if (argumentsErrors.length) throw new Error(argumentsErrors.join('\n'));
 
-  const timeComponents: TimeComponents = getTimeComponents(time, mergedOptions);
+  const convertedTime: number = convertTime(time, mergedOptions.inputUnit, Units.SECOND);
+
+  const timeComponents: TimeComponents = getTimeComponents(convertedTime, mergedOptions);
   const bounds: Bounds = getBounds(timeComponents);
   const filteredTimeComponents: TimeComponents = getFilteredTimeComponents(timeComponents, bounds);
 
@@ -23,6 +25,12 @@ export const formatTime = (
     : pluralise(0, mergedI18n.second.singular, mergedI18n.second.plural);
 };
 
+/**
+ * Filters the default unit time map
+ * removing the units that are outside the [options.minUnit, options.maxUnit] range
+ * @param options - The options
+ * @returns The filtered unit time map
+ */
 const getUnitTimeMap = (options: Options): UnitTimeMap => {
   const minUnitIndex = Object.values(Units).indexOf(options.minUnit);
   const maxUnitIndex = Object.values(Units).indexOf(options.maxUnit);
@@ -36,13 +44,19 @@ const getUnitTimeMap = (options: Options): UnitTimeMap => {
   );
 };
 
+/**
+ * Returns the time split and converted into individual time components
+ * @param time - The time to format
+ * @param options - The options
+ * @returns The time split and converted into individual time components
+ */
 const getTimeComponents = (time: number, options: Options): TimeComponents => {
   const unitTimeMap: UnitTimeMap = getUnitTimeMap(options);
   const timeComponents: TimeComponents = {};
 
   Object.entries(unitTimeMap).forEach(([key, value], index, array) => {
     if (index < array.length - 1) {
-      timeComponents[key] = Math.floor(time / value);
+      timeComponents[key] = Math.floor(convertTime(time, Units.SECOND, key as Units));
       time -= timeComponents[key] * value;
     } else timeComponents[key] = roundToDecimals(time / value, Math.round(options.precision));
   });

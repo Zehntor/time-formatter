@@ -11,8 +11,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add `inputUnits` option
 - JS import, JS require and TS import tests
 - Add a code of conduct
+- Improve `roundToDecimals` function
+- Do not allow unknown options
 
 ### Changed
 

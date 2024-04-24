@@ -31,7 +31,7 @@
     "test:js-import": "npm run test --prefix ./tests/js-import",
     "test:js-require": "npm run test --prefix ./tests/js-require",
     "test:ts-import": "npm run test --prefix ./tests/ts-import",
-    "test:imports-and-requires": "npm run link && npm run test:js-import && npm run test:js-require && npm run test:ts-import",
+    "test:imports-and-requires": "npm run build && npm run link && npm run test:js-import && npm run test:js-require && npm run test:ts-import",
     "test:coverage": "jest --coverage"
   },
   "keywords": [
