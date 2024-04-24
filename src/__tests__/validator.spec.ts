@@ -46,6 +46,18 @@ describe('validator', () => {
       expect(result).toStrictEqual(['options.precision must be non-negative']);
     });
 
+    it('should check that inputUnit is valid', () => {
+      const result: string[] = validateOptions({
+        ...DefaultOptions,
+        // @ts-expect-error invalid
+        inputUnit: 'invalid'
+      });
+
+      expect(result).toStrictEqual([
+        "options.inputUnit must be 'week', 'day', 'hour', 'minute', 'second', 'millisecond' or 'microsecond'"
+      ]);
+    });
+
     it('should check that minUnit is valid', () => {
       const result: string[] = validateOptions({
         ...DefaultOptions,
@@ -88,6 +100,17 @@ describe('validator', () => {
       });
 
       expect(result).toStrictEqual([]);
+    });
+
+    it('should not allow unknown options', () => {
+      const result: string[] = validateOptions({
+        ...DefaultOptions,
+        // @ts-expect-error invalid
+        not: 'what',
+        you: 'expected'
+      });
+
+      expect(result).toStrictEqual(["Unknown option 'not'", "Unknown option 'you'"]);
     });
   });
 });
