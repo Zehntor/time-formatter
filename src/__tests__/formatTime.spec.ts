@@ -9,9 +9,9 @@ const sumAll = (numbers: number[]): number => numbers.reduce((acc: number, value
 
 const validateArgumentsMock = jest
   .fn()
-  .mockReturnValueOnce([])
-  .mockReturnValueOnce(['An error occured'])
-  .mockReturnValue([]);
+  // @ts-expect-error An error occured
+  .mockImplementation((time: number, options: Options) => (time === 'a' ? ['An error occured'] : []));
+
 jest.mock('../validator', () => ({
   validateArguments: (...args) => validateArgumentsMock(...args)
 }));
@@ -52,7 +52,7 @@ describe('formatTime', () => {
       [2 * ONE_DAY, '2 days'],
       [2 * ONE_HOUR, '2 hours'],
       [2 * ONE_MINUTE, '2 minutes'],
-      [2, '2 seconds'],
+      [2 * ONE_SECOND, '2 seconds'],
       [2 * ONE_MILLISECOND, '2 milliseconds'],
       [2 * ONE_MICROSECOND, '2 microseconds']
     ];
@@ -129,6 +129,35 @@ describe('formatTime', () => {
   it('should convert the sum of odd factors', () => {
     const oddFactorsSum: number = allFactors.reduce((acc, value, index) => (index % 2 === 0 ? acc : acc + value), 0);
     expect(formatTime(oddFactorsSum)).toBe('1 day, 0 hours, 1 minute, 0 seconds and 1 millisecond');
+  });
+
+  describe('should convert the inputUnit', () => {
+    const values = [
+      [1, { inputUnit: Units.WEEK } as Partial<Options>, '1 week'],
+      [1 + 1 / 7, { inputUnit: Units.WEEK } as Partial<Options>, '1 week and 1 day'],
+      [1, { inputUnit: Units.DAY } as Partial<Options>, '1 day'],
+      [1 + 2 / 24, { inputUnit: Units.DAY } as Partial<Options>, '1 day and 2 hours'],
+      [1, { inputUnit: Units.HOUR } as Partial<Options>, '1 hour'],
+      [1 + 3 / 60, { inputUnit: Units.HOUR } as Partial<Options>, '1 hour and 3 minutes'],
+      [1, { inputUnit: Units.MINUTE } as Partial<Options>, '1 minute'],
+      [1 + 4 / 60, { inputUnit: Units.MINUTE } as Partial<Options>, '1 minute and 4 seconds'],
+      [1, { inputUnit: Units.SECOND } as Partial<Options>, '1 second'],
+      [1 + 1 / 2, { inputUnit: Units.SECOND } as Partial<Options>, '1 second and 500 milliseconds'],
+      [1, { inputUnit: Units.MILLISECOND } as Partial<Options>, '1 millisecond'],
+      [
+        1 + 1 / 4,
+        { inputUnit: Units.MILLISECOND, minUnit: Units.MICROSECOND } as Partial<Options>,
+        '1 millisecond and 250 microseconds'
+      ],
+      [1, { inputUnit: Units.MICROSECOND, minUnit: Units.MICROSECOND } as Partial<Options>, '1 microsecond']
+    ];
+
+    it.each(values)(
+      "human readable of %d %o should be '%s'",
+      (time: number, options: Partial<Options>, human: string) => {
+        expect(formatTime(time, options)).toBe(human);
+      }
+    );
   });
 
   describe('should convert some random values', () => {
