@@ -6,7 +6,9 @@
   "umd:main": "dist/umd/data-structure-typed.min.js",
   "module": "dist/mjs/index.js",
   "types": "dist/mjs/index.d.ts",
-  "files": ["./dist/**/*"],
+  "files": [
+    "./dist/**/*"
+  ],
   "exports": {
     "./package.json": "./package.json",
     ".": {
