@@ -11,14 +11,25 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+### Changed
+
+### Fixed
+
+
+## v2.1.0 (15 May 2024)
+
+### Added
+
 - Add `inputUnits` option
 - JS import, JS require and TS import tests
 - Add a code of conduct
 - Improve `roundToDecimals` function
 - Do not allow unknown options
+- Add publishable file list to package.json
 
 ### Changed
 
+- Updated Node.js to v22
 - Updated dependencies
 
 ### Fixed
