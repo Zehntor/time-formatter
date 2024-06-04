@@ -16,6 +16,18 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 
+## v2.1.1 (04 Jun 2024)
+
+### Added
+
+- Updated formatTime.spec.ts tests
+- Updated README to include `Options.inputUnit`
+
+### Changed
+
+- Updated dependencies
+
+
 ## v2.1.0 (15 May 2024)
 
 ### Added
