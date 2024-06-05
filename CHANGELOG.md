@@ -16,6 +16,13 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 
+## v2.1.2 (05 Jun 2024)
+
+### Changed
+
+- Updated instalation intructions on README.md
+
+
 ## v2.1.1 (04 Jun 2024)
 
 ### Added
