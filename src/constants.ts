@@ -34,6 +34,7 @@ export const DefaultUnitTimeMap: UnitTimeMap = {
 
 export const DefaultOptions: Options = {
   precision: 3,
+  inputUnit: Units.SECOND,
   minUnit: Units.MILLISECOND,
   maxUnit: Units.WEEK
 };

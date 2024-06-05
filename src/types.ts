@@ -3,6 +3,7 @@ import { TimeConstants, Units } from './constants';
 // To be exported
 export type Options = {
   precision: number;
+  inputUnit: Units;
   minUnit: Units;
   maxUnit: Units;
 };

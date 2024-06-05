@@ -9,9 +9,9 @@ const sumAll = (numbers: number[]): number => numbers.reduce((acc: number, value
 
 const validateArgumentsMock = jest
   .fn()
-  .mockReturnValueOnce([])
-  .mockReturnValueOnce(['An error occured'])
-  .mockReturnValue([]);
+  // @ts-expect-error An error occured
+  .mockImplementation((time: number, options: Options) => (time === 'a' ? ['An error occured'] : []));
+
 jest.mock('../validator', () => ({
   validateArguments: (...args) => validateArgumentsMock(...args)
 }));
@@ -52,7 +52,7 @@ describe('formatTime', () => {
       [2 * ONE_DAY, '2 days'],
       [2 * ONE_HOUR, '2 hours'],
       [2 * ONE_MINUTE, '2 minutes'],
-      [2, '2 seconds'],
+      [2 * ONE_SECOND, '2 seconds'],
       [2 * ONE_MILLISECOND, '2 milliseconds'],
       [2 * ONE_MICROSECOND, '2 microseconds']
     ];
@@ -131,35 +131,87 @@ describe('formatTime', () => {
     expect(formatTime(oddFactorsSum)).toBe('1 day, 0 hours, 1 minute, 0 seconds and 1 millisecond');
   });
 
-  describe('should convert some random values', () => {
+  describe('should convert the inputUnit', () => {
     const values = [
-      [694861, '1 week, 1 day, 1 hour, 1 minute and 1 second'],
-      [90000, '1 day and 1 hour'],
-      [86418.004003002, '1 day, 0 hours, 0 minutes, 18 seconds, 4 milliseconds and 3.002 microseconds'],
-      [86400, '1 day'],
-      [3940, '1 hour, 5 minutes and 40 seconds'],
-      [3610, '1 hour, 0 minutes and 10 seconds'],
-      [3600.001, '1 hour, 0 minutes, 0 seconds and 1 millisecond'],
-      [3600, '1 hour'],
-      [1800, '30 minutes'],
-      [900, '15 minutes'],
-      [450, '7 minutes and 30 seconds'],
-      [225, '3 minutes and 45 seconds'],
-      [100, '1 minute and 40 seconds'],
-      [60, '1 minute'],
-      [30, '30 seconds'],
-      [15, '15 seconds'],
-      [1.23456, '1 second, 234 milliseconds and 560 microseconds'],
-      [0.246, '246 milliseconds'],
-      [0.384236, '384 milliseconds and 236 microseconds'],
-      [0.000286, '286 microseconds'],
-      [0, '0 seconds']
+      [1, { inputUnit: Units.WEEK } as Partial<Options>, '1 week'],
+      [1 + 1 / 7, { inputUnit: Units.WEEK } as Partial<Options>, '1 week and 1 day'],
+      [1, { inputUnit: Units.DAY } as Partial<Options>, '1 day'],
+      [1 + 2 / 24, { inputUnit: Units.DAY } as Partial<Options>, '1 day and 2 hours'],
+      [1, { inputUnit: Units.HOUR } as Partial<Options>, '1 hour'],
+      [1 + 3 / 60, { inputUnit: Units.HOUR } as Partial<Options>, '1 hour and 3 minutes'],
+      [1, { inputUnit: Units.MINUTE } as Partial<Options>, '1 minute'],
+      [1 + 4 / 60, { inputUnit: Units.MINUTE } as Partial<Options>, '1 minute and 4 seconds'],
+      [1, { inputUnit: Units.SECOND } as Partial<Options>, '1 second'],
+      [1 + 1 / 2, { inputUnit: Units.SECOND } as Partial<Options>, '1 second and 500 milliseconds'],
+      [1, { inputUnit: Units.MILLISECOND } as Partial<Options>, '1 millisecond'],
+      [
+        1 + 1 / 4,
+        { inputUnit: Units.MILLISECOND, minUnit: Units.MICROSECOND } as Partial<Options>,
+        '1 millisecond and 250 microseconds'
+      ],
+      [1, { inputUnit: Units.MICROSECOND, minUnit: Units.MICROSECOND } as Partial<Options>, '1 microsecond']
     ];
-    const options: Partial<Options> = { minUnit: Units.MICROSECOND };
 
-    it.each(values)("human readable of %d seconds should be '%s'", (time: number, human: string) => {
-      expect(formatTime(time, options)).toBe(human);
-    });
+    it.each(values)(
+      "human readable of %d %o should be '%s'",
+      (time: number, options: Partial<Options>, human: string) => {
+        expect(formatTime(time, options)).toBe(human);
+      }
+    );
+  });
+
+  describe('should convert some random values', () => {
+    const simpleOptions: Partial<Options> = { minUnit: Units.MICROSECOND };
+    const fullOptions: Options = {
+      precision: 2,
+      inputUnit: Units.MILLISECOND,
+      minUnit: Units.MICROSECOND,
+      maxUnit: Units.HOUR
+    };
+    const oneSecondInMilliseconds: number = ONE_SECOND * 1e3;
+    const oneMinuteInMilliseconds: number = 60 * oneSecondInMilliseconds;
+    const oneHourInMilliseconds: number = 60 * oneMinuteInMilliseconds;
+    const oneDayInMilliseconds: number = 24 * oneHourInMilliseconds;
+    const oneMicrosecondInMilliseconds: number = 1e-3;
+    const aRandomValueInMilliseconds = [
+      2 * oneDayInMilliseconds,
+      4 * oneHourInMilliseconds,
+      8 * oneMinuteInMilliseconds,
+      16 * oneSecondInMilliseconds,
+      32,
+      64 * oneMicrosecondInMilliseconds
+    ].reduce((acc, value) => acc + value, 0);
+    const values = [
+      [694861, simpleOptions, '1 week, 1 day, 1 hour, 1 minute and 1 second'],
+      [90000, simpleOptions, '1 day and 1 hour'],
+      [86418.004003002, simpleOptions, '1 day, 0 hours, 0 minutes, 18 seconds, 4 milliseconds and 3.002 microseconds'],
+      [86400, simpleOptions, '1 day'],
+      [3940, simpleOptions, '1 hour, 5 minutes and 40 seconds'],
+      [3610, simpleOptions, '1 hour, 0 minutes and 10 seconds'],
+      [3600.001, simpleOptions, '1 hour, 0 minutes, 0 seconds and 1 millisecond'],
+      [3600, simpleOptions, '1 hour'],
+      [1800, simpleOptions, '30 minutes'],
+      [900, simpleOptions, '15 minutes'],
+      [450, simpleOptions, '7 minutes and 30 seconds'],
+      [225, simpleOptions, '3 minutes and 45 seconds'],
+      [100, simpleOptions, '1 minute and 40 seconds'],
+      [60, simpleOptions, '1 minute'],
+      [30, simpleOptions, '30 seconds'],
+      [15, simpleOptions, '15 seconds'],
+      [1.23456, simpleOptions, '1 second, 234 milliseconds and 560 microseconds'],
+      [0.246, simpleOptions, '246 milliseconds'],
+      [0.384236, simpleOptions, '384 milliseconds and 236 microseconds'],
+      [0.000286, simpleOptions, '286 microseconds'],
+      [0, simpleOptions, '0 seconds'],
+      [aRandomValueInMilliseconds, fullOptions, '52 hours, 8 minutes, 16 seconds, 32 milliseconds and 64 microseconds']
+    ];
+
+    it.each(values)(
+      "human readable of %d %o seconds should be '%s'",
+      (time: number, options: Partial<Options>, human: string) => {
+        expect(formatTime(time, options)).toBe(human);
+      }
+    );
   });
 
   describe('options', () => {

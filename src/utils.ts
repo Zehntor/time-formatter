@@ -1,3 +1,5 @@
+import { DefaultUnitTimeMap, Units } from './constants';
+
 /**
  * Merges the overrides with the default overrides
  * @param defaults - The default values
@@ -39,11 +41,21 @@ export const pluralise = (
 
 /**
  * Rounds a number to some decimals
- * @param {number} number - The number to round
- * @param {number} decimals - the number of decimal places
+ * @param number - The number to round
+ * @param decimals - The number of decimal places
  * @returns The rounded number
  */
 export const roundToDecimals = (number: number, decimals = 3) => {
   const exponent = 10 ** decimals;
-  return Math.round(number * exponent) / exponent;
+  return Math.round((number + Number.EPSILON) * exponent) / exponent;
 };
+
+/**
+ * Converts a time from one unit to another
+ * @param time - The time to convert
+ * @param from - The input unit
+ * @param to - The output unit
+ * @returns The converted time
+ */
+export const convertTime = (time: number, from: Units, to: Units): number =>
+  (time * DefaultUnitTimeMap[from]) / DefaultUnitTimeMap[to];

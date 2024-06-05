@@ -11,11 +11,37 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- JS import, JS require and TS import tests
-- Add a code of conduct
+### Changed
+
+### Fixed
+
+
+## v2.1.1 (04 Jun 2024)
+
+### Added
+
+- Updated formatTime.spec.ts tests
+- Updated README to include `Options.inputUnit`
 
 ### Changed
 
+- Updated dependencies
+
+
+## v2.1.0 (15 May 2024)
+
+### Added
+
+- Add `inputUnits` option
+- JS import, JS require and TS import tests
+- Add a code of conduct
+- Improve `roundToDecimals` function
+- Do not allow unknown options
+- Add publishable file list to package.json
+
+### Changed
+
+- Updated Node.js to v22
 - Updated dependencies
 
 ### Fixed

@@ -1,5 +1,5 @@
-import { DefaultI18n, DefaultOptions } from '../constants';
-import { getMergedDefaults, getHumanReadableList, pluralise, roundToDecimals } from '../utils';
+import { DefaultI18n, DefaultOptions, Units } from '../constants';
+import { convertTime, getHumanReadableList, getMergedDefaults, pluralise, roundToDecimals } from '../utils';
 import { I18n, Options } from '../types';
 
 describe('getMergedDefaults', () => {
@@ -99,10 +99,37 @@ describe('roundToDecimals', () => {
     [6.39, 1, 6.4],
     [Math.PI, 4, 3.1416],
     [-Math.E, 6, -2.718282],
-    [1 / 3, 2, 0.33]
+    [1 / 3, 2, 0.33],
+    [1.005, 2, 1.01],
+    [1.255, 2, 1.26]
   ];
 
-  it.each(values)('round to decimals of %d should be %d', (number: number, decimals: number, round: number) => {
-    expect(roundToDecimals(number, decimals)).toBe(round);
+  it.each(values)('round to decimals of %d should be %d', (number: number, decimals: number, result: number) => {
+    expect(roundToDecimals(number, decimals)).toBe(result);
   });
+});
+
+describe('convertTime', () => {
+  const values = [
+    [1, Units.MICROSECOND, Units.MILLISECOND, 1e-3],
+    [1, Units.MILLISECOND, Units.SECOND, 1e-3],
+
+    [1, Units.WEEK, Units.DAY, 7],
+    [1, Units.DAY, Units.HOUR, 24],
+    [1, Units.HOUR, Units.MINUTE, 60],
+    [1, Units.MINUTE, Units.SECOND, 60],
+    [1, Units.SECOND, Units.MILLISECOND, 1e3],
+    [1, Units.MILLISECOND, Units.MICROSECOND, 1e3],
+
+    [1, Units.MINUTE, Units.SECOND, 60],
+    [1, Units.HOUR, Units.SECOND, 3600]
+  ];
+
+  it.each(values)(
+    '%d %s converted to %s should be %d',
+    (time: number, from: Units, to: Units, expectedResult: number) => {
+      const result: number = convertTime(time, from, to);
+      expect(Math.abs(result - expectedResult)).toBeLessThan(1e3 * Number.EPSILON);
+    }
+  );
 });

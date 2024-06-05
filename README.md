@@ -17,17 +17,14 @@ const formattedTime = formatTime(4.256128);
 ```js
 import { formatTime } from '@rwf-projects/time-formatter';
 
-const options = { minUnit: 'second', maxUnit: 'hour' };
-const formattedTime = formatTime(94592, options);
-// 26 hours, 16 minutes and 32 seconds
-```
-
-```js
-import { formatTime } from '@rwf-projects/time-formatter';
-
-const options = { precision: 1, minUnit: 'microsecond' };
-const formattedTime = formatTime(792496.032064128, options);
-// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
+const options = {
+  precision: 2,
+  inputUnit: 'millisecond',
+  minUnit: 'microsecond',
+  maxUnit: 'hour'
+};
+const formattedTime = formatTime(187696032.064, options);
+// 52 hours, 8 minutes, 16 seconds, 32 milliseconds and 64 microseconds
 ```
 
 </details>
@@ -53,9 +50,14 @@ const formattedTime: string = formatTime(94592, options);
 ```ts
 import { formatTime, Options, Units } from '@rwf-projects/time-formatter';
 
-const options: Partial<Options> = { precision: 1, minUnit: Units.MICROSECOND };
-const formattedTime: string = formatTime(792496.032064128, options);
-// 1 week, 2 days, 4 hours, 8 minutes, 16 seconds, 32 milliseconds and 64.1 microseconds
+const options: Options = {
+  precision: 2,
+  inputUnit: Units.MILLISECOND,
+  minUnit: Units.MICROSECOND,
+  maxUnit: Units.HOUR
+};
+const formattedTime: string = formatTime(187696032.064, options);
+// 52 hours, 8 minutes, 16 seconds, 32 milliseconds and 64 microseconds
 ```
 
 </details>
@@ -64,6 +66,7 @@ const formattedTime: string = formatTime(792496.032064128, options);
 
 - Outputs a nice human-readable string representig a time interval;
 - Output units from weeks down to microsecond;
+- Input unit is configurable;
 - Minimum and maximum units are configurable;
 - Arbitrary precision in the lower unit;
 - Translatable;
@@ -141,8 +144,9 @@ const formattedTime: string = formatTime(time, [options], [i18n]);
 An object with the following keys:
 
 | Option    | Type   | Default value in JS | Default value in TS | Description                                                     |
-| --------- | ------ | ------------------- | ------------------- | --------------------------------------------------------------- |
+|-----------|--------|---------------------|---------------------|-----------------------------------------------------------------|
 | precision | number | 3                   | 3                   | The amount of decimal places the smallest unit will have        |
+| inputUnit | number | 'second             | `Units.SECOND`      | The input unit. One of the available units                      |
 | minUnit   | string | 'millisecond'       | `Units.MILLISECOND` | The smallest unit that will be used. One of the available units |
 | maxUnit   | string | 'week'              | `Units.WEEK`        | The biggest unit that will be used. One of the available units  |
 
@@ -159,8 +163,8 @@ If you don't need to change the default options, then pass any falsy value.
 Each i18n unit key has a mandatory `singular` key and an optional `plural` key.  
 The `and` key, used in `[...] and unitN` does not use singular or plural.
 
-| Key in JS   | Key in TS         | Default singular value | Default plural value |
-| ----------- | ----------------- | ---------------------- | -------------------- |
+| Key in JS   | Key in TS           | Default singular value | Default plural value |
+|-------------|---------------------|------------------------|----------------------|
 | week        | `Units.WEEK`        | 'week'                 | Singular value + 's' |
 | day         | `Units.DAY`         | 'day'                  | Singular value + 's' |
 | hour        | `Units.HOUR`        | 'hour'                 | Singular value + 's' |
@@ -168,7 +172,7 @@ The `and` key, used in `[...] and unitN` does not use singular or plural.
 | second      | `Units.SECOND`      | 'second'               | Singular value + 's' |
 | millisecond | `Units.MILLISECOND` | 'millisecond'          | Singular value + 's' |
 | microsecond | `Units.MICROSECOND` | 'microsecond'          | Singular value + 's' |
-| and         | and               | 'and'                  | N/A                  |
+| and         | and                 | 'and'                  | N/A                  |
 
 ### Examples
 
