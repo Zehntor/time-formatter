@@ -94,13 +94,13 @@ Why not smaller than `microsecond`?
 ### npm
 
 ```bash
-npm install --save time-formatter
+npm install --save @rwf-projects/time-formatter
 ```
 
 ### yarn
 
 ```bash
-yarn add time-formatter
+yarn add @rwf-projects/time-formatter
 ```
 
 ## Usage
