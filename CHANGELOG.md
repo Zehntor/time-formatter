@@ -16,6 +16,12 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 
+## v2.1.3 (02 Ago 2024)
+
+### Changed
+
+- Updated dependencies
+
 ## v2.1.2 (05 Jun 2024)
 
 ### Changed
