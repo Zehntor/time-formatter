@@ -16,6 +16,18 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 
+## v2.1.5 (11 Oct 2024)
+
+### Changed
+
+- Fixed vulnerable dependencies
+
+## v2.1.4 (11 Oct 2024)
+
+### Changed
+
+- Updated dependencies
+
 ## v2.1.3 (02 Ago 2024)
 
 ### Changed
@@ -26,7 +38,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Updated installation intructions on README.md
+- Updated installation instructions on README.md
 - Updated dependencies
 
 
