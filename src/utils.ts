@@ -45,7 +45,7 @@ export const pluralise = (
  * @param decimals - The number of decimal places
  * @returns The rounded number
  */
-export const roundToDecimals = (number: number, decimals = 3) => {
+export const roundToDecimals = (number: number, decimals = 3): number => {
   const exponent = 10 ** decimals;
   return Math.round((number + Number.EPSILON) * exponent) / exponent;
 };
