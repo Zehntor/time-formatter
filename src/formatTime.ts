@@ -31,17 +31,18 @@ export const formatTime = (
  * @param options - The options
  * @returns The filtered unit time map
  */
-const getUnitTimeMap = (options: Options): UnitTimeMap => {
-  const minUnitIndex = Object.values(Units).indexOf(options.minUnit);
-  const maxUnitIndex = Object.values(Units).indexOf(options.maxUnit);
+const getUnitTimeMap = (options: Options): Partial<UnitTimeMap> => {
+  const unitValues = Object.values(Units);
+  const minUnitIndex = unitValues.indexOf(options.minUnit);
+  const maxUnitIndex = unitValues.indexOf(options.maxUnit);
+  const result: UnitTimeMap = {};
 
-  return Object.entries(DefaultUnitTimeMap).reduce(
-    (acc, [key, value], index) => ({
-      ...acc,
-      ...(index >= maxUnitIndex && index <= minUnitIndex && { [key]: value })
-    }),
-    {} as UnitTimeMap
-  );
+  for (let index = maxUnitIndex; index <= minUnitIndex; index++) {
+    const unit = unitValues[index];
+    result[unit] = DefaultUnitTimeMap[unit];
+  }
+
+  return result;
 };
 
 /**
@@ -64,6 +65,11 @@ const getTimeComponents = (time: number, options: Options): TimeComponents => {
   return timeComponents;
 };
 
+/**
+ * Finds the indexes of the first and last non-zero time components.
+ * @param timeComponents - The time components in unit order
+ * @returns The inclusive bounds, or min = Number.MAX_VALUE and max = 0 if all components are zero
+ */
 const getBounds = (timeComponents: TimeComponents): Bounds =>
   Object.values(timeComponents).reduce(
     (acc, value, index) =>
@@ -104,13 +110,10 @@ const getBounds = (timeComponents: TimeComponents): Bounds =>
  * @returns The filtered time components
  */
 const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }: Bounds): TimeComponents =>
-  Object.entries(timeComponents).reduce(
-    (acc, [key, value], index) => ({
-      ...acc,
-      ...(min <= index && index <= max && { [key]: value })
-    }),
-    {}
-  );
+  Object.entries(timeComponents).reduce<TimeComponents>((acc, [key, value], index) => {
+    if (min <= index && index <= max) acc[key] = value;
+    return acc;
+  }, {});
 
 /**
  * Formats the time components into a human-readable format
@@ -119,7 +122,4 @@ const getFilteredTimeComponents = (timeComponents: TimeComponents, { min, max }:
  * @returns An array of strings representing the formatted time components
  */
 const getFormattedTimeComponents = (timeComponents: TimeComponents, i18n: I18n): string[] =>
-  Object.entries(timeComponents).reduce(
-    (acc, [key, value]) => [...acc, pluralise(value, i18n[key].singular, i18n[key].plural)],
-    [] as string[]
-  );
+  Object.entries(timeComponents).map(([key, value]) => pluralise(value, i18n[key].singular, i18n[key].plural));
