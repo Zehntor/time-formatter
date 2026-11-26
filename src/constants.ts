@@ -22,7 +22,7 @@ export enum TimeConstants {
 }
 
 // Private
-export const DefaultUnitTimeMap: UnitTimeMap = {
+export const DefaultUnitTimeMap: Required<UnitTimeMap> = {
   [Units.WEEK]: TimeConstants.ONE_WEEK,
   [Units.DAY]: TimeConstants.ONE_DAY,
   [Units.HOUR]: TimeConstants.ONE_HOUR,

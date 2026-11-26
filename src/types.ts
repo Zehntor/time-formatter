@@ -30,7 +30,7 @@ export type TimeComponents = {
 };
 
 export type UnitTimeMap = {
-  [key in Units]: TimeConstants;
+  [key in Units]?: TimeConstants;
 };
 
 export type Bounds = {
